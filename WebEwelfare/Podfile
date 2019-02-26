@@ -6,24 +6,9 @@ target 'WebEwelfare' do
   use_frameworks!
 
   # Pods for WebEwelfare
-
-  target 'WebEwelfareTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'WebEwelfareUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
+  
+  pod 'AlamofireObjectMapper', '~> 5.2'
 
-  pod 'SnapKit'
-
-  pod 'Moya/RxSwift'
-  pod 'RxSwift'
-  pod 'RxCocoa'
-  pod 'ReactorKit'
 end
