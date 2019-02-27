@@ -18,10 +18,24 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>byfi.com.WebEwelfare</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>eWelfare</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>eDanbi</string>
 		<string>nhallonepayansimclick</string>
 		<string>kftc-bankpay</string>
 		<string>ispmobile</string>
