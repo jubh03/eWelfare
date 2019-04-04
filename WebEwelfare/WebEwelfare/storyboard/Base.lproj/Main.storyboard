@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -52,12 +52,12 @@
                                 <rect key="frame" x="0.0" y="76" width="375" height="591"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2go-4b-GeM">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2go-4b-GeM" userLabel="Top Layer">
                                 <rect key="frame" x="0.0" y="20" width="375" height="56"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uiA-vb-xtu">
                                         <rect key="frame" x="187.5" y="28" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -119,9 +119,83 @@
             </objects>
             <point key="canvasLocation" x="780" y="26.53673163418291"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="0KW-xg-5ha">
+            <objects>
+                <viewController id="prg-nc-RLn" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="abu-VQ-NmV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UTV-At-kOo" userLabel="Top Layer">
+                                <rect key="frame" x="0.0" y="20" width="375" height="56"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="설정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cuo-6v-0E2">
+                                        <rect key="frame" x="171.5" y="17" width="32" height="22"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ls-Ch-7H0">
+                                        <rect key="frame" x="0.0" y="0.0" width="52" height="56"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="56" id="Fl3-0W-mJb"/>
+                                            <constraint firstAttribute="width" constant="52" id="uk2-f7-Y93"/>
+                                        </constraints>
+                                        <state key="normal" image="titleBackBitton.png"/>
+                                        <connections>
+                                            <action selector="onClickBack:" destination="gTX-ay-393" eventType="touchUpInside" id="kiQ-ZT-P4t"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="3Ls-Ch-7H0" firstAttribute="leading" secondItem="UTV-At-kOo" secondAttribute="leading" id="95n-ix-C4s"/>
+                                    <constraint firstAttribute="bottom" secondItem="3Ls-Ch-7H0" secondAttribute="bottom" id="9tW-Hm-MKK"/>
+                                    <constraint firstItem="cuo-6v-0E2" firstAttribute="centerX" secondItem="UTV-At-kOo" secondAttribute="centerX" id="Mq9-b6-0E7"/>
+                                    <constraint firstAttribute="height" constant="56" id="afF-fK-Gzc"/>
+                                    <constraint firstItem="cuo-6v-0E2" firstAttribute="centerY" secondItem="UTV-At-kOo" secondAttribute="centerY" id="dGW-BS-8W2"/>
+                                    <constraint firstItem="3Ls-Ch-7H0" firstAttribute="top" secondItem="UTV-At-kOo" secondAttribute="top" id="xX9-lc-ndA"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fI2-WQ-bcb">
+                                <rect key="frame" x="0.0" y="76" width="375" height="948"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="128" translatesAutoresizingMaskIntoConstraints="NO" id="oaA-Kg-Hgt">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="oaA-Kg-Hgt" secondAttribute="trailing" id="3V9-Xn-Fwh"/>
+                                    <constraint firstItem="oaA-Kg-Hgt" firstAttribute="top" secondItem="fI2-WQ-bcb" secondAttribute="top" id="5BC-c7-04Q"/>
+                                    <constraint firstItem="oaA-Kg-Hgt" firstAttribute="leading" secondItem="fI2-WQ-bcb" secondAttribute="leading" id="6b3-GV-AfZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="oaA-Kg-Hgt" secondAttribute="bottom" id="eGv-Fn-n8y"/>
+                                    <constraint firstItem="oaA-Kg-Hgt" firstAttribute="width" secondItem="fI2-WQ-bcb" secondAttribute="width" id="rmi-0b-BTd"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="UTV-At-kOo" firstAttribute="top" secondItem="pha-iG-JSs" secondAttribute="top" id="EDS-Py-Vxg"/>
+                            <constraint firstItem="fI2-WQ-bcb" firstAttribute="top" secondItem="UTV-At-kOo" secondAttribute="bottom" id="Jd2-YX-c53"/>
+                            <constraint firstItem="fI2-WQ-bcb" firstAttribute="leading" secondItem="abu-VQ-NmV" secondAttribute="leading" id="WgP-zK-x5q"/>
+                            <constraint firstItem="pha-iG-JSs" firstAttribute="bottom" secondItem="fI2-WQ-bcb" secondAttribute="bottom" id="h4l-fS-rG8"/>
+                            <constraint firstItem="UTV-At-kOo" firstAttribute="leading" secondItem="abu-VQ-NmV" secondAttribute="leading" id="oRt-ZQ-bcF"/>
+                            <constraint firstItem="pha-iG-JSs" firstAttribute="trailing" secondItem="fI2-WQ-bcb" secondAttribute="trailing" id="tBO-qp-QUx"/>
+                            <constraint firstItem="pha-iG-JSs" firstAttribute="trailing" secondItem="UTV-At-kOo" secondAttribute="trailing" id="zdY-pC-I5I"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pha-iG-JSs"/>
+                    </view>
+                    <size key="freeformSize" width="375" height="1024"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v60-jP-9cw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1471" y="187"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="titleBackBitton.png" width="11" height="19"/>
+        <image name="titleBackBitton.png" width="11.5" height="19"/>
         <image name="titleCancleIcon.png" width="19" height="19"/>
     </resources>
 </document>
