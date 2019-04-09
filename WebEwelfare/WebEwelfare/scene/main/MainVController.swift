@@ -8,10 +8,15 @@
 
 import UIKit
 import WebKit
+import SideMenu
 
 class MainVController: BaseVController {
 
+    @IBOutlet weak var lbTitleText: UILabel!
     @IBOutlet weak var containerView: UIView!
+    
+    @IBOutlet weak var vLeftButtons: UIView!
+    @IBOutlet weak var rightButtons: UIView!
     
     private var presenter: MainPresenter!
     
@@ -47,19 +52,35 @@ class MainVController: BaseVController {
     }
     
     private func initView() {
+        SideMenuManager.default.menuFadeStatusBar = false
+        SideMenuManager.default.menuWidth = UIScreen.main.bounds.width * 0.8
+    }
+    
+    @IBAction func onActionBack(_ sender: Any) {
+        if wkWebView.canGoBack {
+            wkWebView.goBack()
+        }
+    }
+    
+    @IBAction func onActionHome(_ sender: Any) {
+        presenter.loadHome()
+    }
+    
+    @IBAction func onActionMenu(_ sender: Any) {
+        presenter.loadSetting()
+    }
+    
+    @IBAction func onActionSearch(_ sender: Any) {
+        presenter.loadSearch()
     }
     
     private func getWebViewConfiguration() -> WKWebViewConfiguration {
         let config = WKWebViewConfiguration()
         let contentController = WKUserContentController()
         
-        let userScript = WKUserScript(
-            source: "sendLoginAction()",
-            injectionTime: WKUserScriptInjectionTime.atDocumentEnd,
-            forMainFrameOnly: true
-        )
-        contentController.addUserScript(userScript)
         contentController.add(self, name:"sendLoginAction")
+        contentController.add(self, name:"checkMainPage")
+        contentController.add(self, name:"showLoading")
         config.userContentController = contentController
         
         let preferences = WKPreferences()
@@ -76,11 +97,17 @@ class MainVController: BaseVController {
         }
         
         var request = URLRequest(url: url)
-        
-        var cookies = HTTPCookie.requestHeaderFields(with: HTTPCookieStorage.shared.cookies(for: request.url!)!)
-        if let value = cookies["Cookie"] {
-            request.addValue(value, forHTTPHeaderField: "Cookie")
+        request.addValue("iOS", forHTTPHeaderField: "platform")
+        request.addValue(AppManager.instance.bundleIdentifier!, forHTTPHeaderField: "package")
+        request.addValue(AppManager.instance.appVersion!, forHTTPHeaderField: "version")
+        if let token = AccountManager.instance.token {
+            request.addValue(token, forHTTPHeaderField: "token-ewelfare")
         }
+        
+//        var cookies = HTTPCookie.requestHeaderFields(with: HTTPCookieStorage.shared.cookies(for: request.url!)!)
+//        if let value = cookies["Cookie"] {
+//            request.addValue(value, forHTTPHeaderField: "Cookie")
+//        }
         
         wkWebView.load(request)
     }
@@ -310,9 +337,25 @@ extension MainVController: WKNavigationDelegate {
 extension MainVController: WKScriptMessageHandler {
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if (message.name == "sendLoginAction") {
+        print("[[ JavaScript ]] name : \(message.name), body : \(message.body)")
+        
+        if message.name == "sendLoginAction" {
             AccountManager.instance.token = message.body as? String
             AppManager.instance.requestFcmToken()
+        }
+        else if message.name == "checkMainPage" {
+            if let body = message.body as? String, !body.isEmpty {
+                vLeftButtons.isHidden = true
+                lbTitleText.text = nil
+            }
+            else {
+                vLeftButtons.isHidden = false
+                lbTitleText.text = wkWebView.title
+            }
+            // print("wkWebView.title : \(wkWebView.title)")
+        }
+        else if message.name == "showLoading" {
+            
         }
     }
     

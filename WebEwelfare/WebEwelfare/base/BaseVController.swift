@@ -16,6 +16,35 @@ class BaseVController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    // change scene
+    func goLogin() {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "login") as! LoginVController
+        present(vc, animated: false)
+    }
+    
+    func goMain() {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "mainWeb") as! MainVController
+        present(vc, animated: false)
+    }
+    
+    func goSetting() {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "setting") as! SettingVController
+        present(vc, animated: true)
+    }
+    
+    func goMarket(appId: String) {
+        let urlString = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=\(appId)&mt=8"
+        
+        if let downloadUrl = URL.init(string: urlString) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(downloadUrl, options: [:], completionHandler: nil)
+            }
+            else {
+                UIApplication.shared.openURL(downloadUrl)
+            }
+        }
+    }
+    
     func alertPopup(message: String, _ callback: @escaping ()->Void) {
         alertPopup(message: message, buttonText: "확인", callback)
     }

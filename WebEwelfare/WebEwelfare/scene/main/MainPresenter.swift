@@ -17,7 +17,25 @@ class MainPresenter {
         self.view = view
         self.model = model
         
-        view.loadUrl(urlPath: model.getMainUrl())
+        view.loadUrl(urlPath: model.urlMain)
     }
     
+    func loadHome() {
+        if self.view != nil {
+            self.view!.loadUrl(urlPath: model.urlMain)
+        }
+    }
+    
+    func loadSearch() {
+        if self.view != nil {
+            self.view!.loadUrl(urlPath: model.urlSearch)
+        }
+    }
+    
+    func loadSetting() {
+        if self.view != nil {
+            self.view!.goSetting()
+        }
+    }
+
 }

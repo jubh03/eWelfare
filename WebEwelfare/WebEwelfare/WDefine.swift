@@ -10,15 +10,18 @@ import Foundation
 
 class WDefine {
     
+    static let eDanbiAppId = "1447448667"
+    static let eBokjiAppId = "1448654587"
+    
     static var URL: String {
         get {
-            return "https://m.ewelfare.net/"
+            return "https://www.ewelfare.shop:444/"
         }
     }
     
     static var API: String {
         get {
-            return "https://backend.ewelfare.net/api/"
+            return "https://www.ewelfare.shop:444/api/"
         }
     }
     

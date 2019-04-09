@@ -10,8 +10,16 @@ import Foundation
 
 class MainModel {
     
-    func getMainUrl() -> String {
-        return WDefine.URL
+    var urlMain: String {
+        get {
+            return WDefine.URL + "api/login/app/\(AccountManager.instance.id)"
+        }
+    }
+    
+    var urlSearch: String {
+        get {
+            return WDefine.URL + "search"
+        }
     }
     
     func getToken() -> String {

@@ -8,7 +8,6 @@
 
 import Foundation
 import Alamofire
-import ObjectMapper
 
 class AlamofireHelper {
     
@@ -21,28 +20,18 @@ class AlamofireHelper {
     
     var headers: HTTPHeaders {
         var _header: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "user-agent": "net.byfi.ebseo(159)"
+            "Content-Type": "application/json"
         ]
         
         if let token = AccountManager.instance.token {
-            _header["X-CLIENT-TOKEN"] = token
+            _header["token-ewelfare"] = token
         }
+        
+        _header["version"] = AppManager.instance.appVersion
+        _header["package"] = AppManager.instance.bundleIdentifier
+        _header["platform"] = "iOS"
         
         return _header
-    }
-    
-    class WResult: Mappable {
-        
-        var result: String?
-        
-        required init?(map: Map) {
-        }
-        
-        func mapping(map: Map) {
-            self.result <- map["result"]
-        }
-        
     }
 
 }

@@ -95,11 +95,17 @@ class OtherWebVController: BaseVController {
         }
         
         var request = URLRequest(url: url)
-        
-        var cookies = HTTPCookie.requestHeaderFields(with: HTTPCookieStorage.shared.cookies(for: request.url!)!)
-        if let value = cookies["Cookie"] {
-            request.addValue(value, forHTTPHeaderField: "Cookie")
+        request.addValue("iOS", forHTTPHeaderField: "platform")
+        request.addValue(AppManager.instance.bundleIdentifier!, forHTTPHeaderField: "package")
+        request.addValue(AppManager.instance.appVersion!, forHTTPHeaderField: "version")
+        if let token = AccountManager.instance.token {
+            request.addValue(token, forHTTPHeaderField: "token-ewelfare")
         }
+        
+//        var cookies = HTTPCookie.requestHeaderFields(with: HTTPCookieStorage.shared.cookies(for: request.url!)!)
+//        if let value = cookies["Cookie"] {
+//            request.addValue(value, forHTTPHeaderField: "Cookie")
+//        }
         
         wkWebView.load(request)
     }

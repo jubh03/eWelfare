@@ -10,5 +10,8 @@ target 'WebEwelfare' do
   pod 'Firebase/Messaging'
   
   pod 'AlamofireObjectMapper', '~> 5.2'
+  pod 'SwiftyJSON', '~> 4.0'
+  
+  pod 'SideMenu'
 
 end
