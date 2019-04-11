@@ -21,7 +21,14 @@ class SplashVController: BaseVController {
         AppManager.instance.requestIntro() { code in
             switch code {
             case ResResultCode.Success.rawValue:
-                self.goMain()
+                if let token = AccountManager.instance.token, !token.isEmpty {
+                    self.goMain()
+                }
+                else {
+                    self.popupTokenError()
+                }
+            case ResResultCode.TokenError.rawValue:
+                self.popupTokenError()
             case ResResultCode.VersionLow.rawValue:
                 self.popupUpdate()
             case ResResultCode.VersionLowMustUpdate.rawValue:
@@ -29,6 +36,12 @@ class SplashVController: BaseVController {
             default:
                 self.goLogin()
             }
+        }
+    }
+    
+    private func popupTokenError() {
+        self.alertPopup(message: "로그인 세션이 종료되어 로그인 화면으로 이동됩니다.") {
+            self.goLogin()
         }
     }
     

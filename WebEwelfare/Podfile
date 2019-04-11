@@ -13,5 +13,7 @@ target 'WebEwelfare' do
   pod 'SwiftyJSON', '~> 4.0'
   
   pod 'SideMenu'
+  
+  pod 'SDWebImage'
 
 end

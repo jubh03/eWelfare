@@ -12,6 +12,7 @@ import SideMenu
 
 class MainVController: BaseVController {
 
+    @IBOutlet weak var ivTitle: UIImageView!
     @IBOutlet weak var lbTitleText: UILabel!
     @IBOutlet weak var containerView: UIView!
     
@@ -22,6 +23,10 @@ class MainVController: BaseVController {
     
     private var wkWebView: WKWebView!
     private var newWkWebView: WKWebView?
+    
+    private let imageLoadingPopup = ImageLoadingPopup().create()
+    
+    var tid: String?
     
     override func loadView() {
         super.loadView()
@@ -52,6 +57,10 @@ class MainVController: BaseVController {
     }
     
     private func initView() {
+        // Enable gestures. The left and/or right menus must be set up above for these to work.
+        // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
+        SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.view)
+        
         SideMenuManager.default.menuFadeStatusBar = false
         SideMenuManager.default.menuWidth = UIScreen.main.bounds.width * 0.8
     }
@@ -79,8 +88,11 @@ class MainVController: BaseVController {
         let contentController = WKUserContentController()
         
         contentController.add(self, name:"sendLoginAction")
+        contentController.add(self, name:"aspGet")
+        contentController.add(self, name:"aspPost")
         contentController.add(self, name:"checkMainPage")
         contentController.add(self, name:"showLoading")
+        contentController.add(self, name:"tokenError")
         config.userContentController = contentController
         
         let preferences = WKPreferences()
@@ -202,7 +214,7 @@ extension MainVController: WKNavigationDelegate {
                 return
             }
         }
-
+        
         // iOS10 신한, 삼성, NH 등 앱카드 관련 ///////////////////
         let device = UIDevice.current
         var backgroundSupported = false
@@ -213,7 +225,7 @@ extension MainVController: WKNavigationDelegate {
         NSLog("backgroundSupported ==>%@", backgroundSupported ? "YES" : "NO")
         
         if !backgroundSupported {
-            let alertController = UIAlertController(title: "e복지", message: "멀티테스킹을 지원하는 기기 또는 어플만 공인인증서비스가 가능합니다.", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "e단비", message: "멀티테스킹을 지원하는 기기 또는 어플만 공인인증서비스가 가능합니다.", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in
             }))
             
@@ -221,57 +233,55 @@ extension MainVController: WKNavigationDelegate {
             return
         }
         
-        /*
-        // 스마트 신한앱 다운로드 url
-        let sh_url = "http://itunes.apple.com/us/app/id360681882?mt=8" //신한Mobile앱 결제 다운로드 url
-        let sh_url2 = "https://itunes.apple.com/kr/app/sinhan-mobilegyeolje/id572462317?mt=8"
-        
-        // 현대 다운로드 url
-        let hd_url = "http://itunes.apple.com/kr/app/id362811160?mt=8"
-        
-        // 스마트 신한 url 스키마
-        let sh_appname = "smshinhanansimclick" //스마트 신한앱 url 스키마
-        let sh_appname2 = "shinhan-sr-ansimclick"
-        
-        // 현대카드 url
-        let hd_appname = "smhyundaiansimclick" //현대카드 url
-        let hd_vbv = "ansimclick.hyundaicard.com"
-        */
-        
         if let urlStr = navigationAction.request.url?.absoluteString {
             // print("요청된 URL ==> \(urlStr)")
             
-            let nsStringUrlStr = urlStr as NSString
-
-            if Int(nsStringUrlStr.range(of: "ansimclick.hyundaicard.com").location ) != NSNotFound {
-                decisionHandler(.allow)
+            if urlStr.hasPrefix("ispmobile://") {  // 모바일ISP 호출 처리
+                NSLog("ispmobile ");
+                
+                // ispmobile://?TID=SMTPAY001m01011708181134147103
+                // tid 저장
+                tid = urlStr.components(separatedBy: "TID=")[1]
+                
+                if let ispMobileAppURL = URL(string: urlStr) {
+                    UIApplication.shared.open(ispMobileAppURL, options: [:]) { isSuccess in
+                        if !isSuccess {
+                            if let ispMobileAppDownloadURL = URL(string: "http://itunes.apple.com/kr/app/id369125087?mt=8") {
+                                UIApplication.shared.open(ispMobileAppDownloadURL, options: [:], completionHandler: nil)
+                            }
+                        }
+                    }
+                }
+                decisionHandler(.cancel)
                 return
             }
-            else {
-                if nsStringUrlStr.contains("itunes.apple.com") {
-                    print("Main 1. 앱설치 url 입니다. ==>%@",urlStr)
-                    UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
-                    decisionHandler(.cancel)
-                    
-                    if newWkWebView != nil {
-                        webViewDidClose(newWkWebView!)
+                // else if urlStr.hasPrefix("bankpay://") {  // 금결원 APP 호출 처리
+            else if urlStr.hasPrefix("kftc-bankpay://") {  // 금결원 APP 호출 처리
+                //    kftc-bankpay://eftpay?callbackfunc=http://203.81.9.4:1880/RequestBankpay.do&approve_no=21900260&serial_no=0000000&amount=1004&hd_ep_type=SECUCERT&firm_name=(%EC%A3%BC)%EC%8A%A4%EB%A7%88%ED%8A%B8%EB%A1%9C&receipt_yn=N&user_key=SMTPAY001m02011708251359568455&title=&sbp_service_use=Y&sbp_tab_first=Y&fixed_bank_code=&callbackparam1=380902&returnURL=&method=POST&
+                
+                if let kftcMobileAppURL = URL(string: urlStr) {
+                    UIApplication.shared.open(kftcMobileAppURL, options: [:]) { isSuccess in
+                        if !isSuccess {
+                            if let kftcMobileAppDownloadURL = URL(string: "http://itunes.apple.com/kr/app/id398456030?mt=8") {
+                                UIApplication.shared.open(kftcMobileAppDownloadURL, options: [:], completionHandler: nil)
+                            }
+                        }
                     }
+                }
+                decisionHandler(.cancel)
+                return
+            }
+            else if urlStr.range(of: "itunes.apple.com") != nil || urlStr.range(of: "phobos.apple.com") != nil {
+                if self.openUrl(urlStr) {
+                    decisionHandler(.cancel)
                     return
                 }
             }
-
-            if Int(nsStringUrlStr.range(of: "ansimclick").location ) != NSNotFound {
-                print("Main 2. 앱설치 url 입니다. ==>%@",urlStr)
-                UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
-                decisionHandler(.cancel)
-                return
-            }
-
-            if Int(nsStringUrlStr.range(of: "appfree").location ) != NSNotFound {
-                print("Main 3. 앱설치 url 입니다. ==>%@",urlStr)
-                UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
-                decisionHandler(.cancel)
-                return
+            else if !urlStr.hasPrefix("http://") && !urlStr.hasPrefix("https://") && !urlStr.hasPrefix("about:") {
+                if self.openUrl(urlStr) {
+                    decisionHandler(.cancel)
+                    return
+                }
             }
         }
         
@@ -343,19 +353,40 @@ extension MainVController: WKScriptMessageHandler {
             AccountManager.instance.token = message.body as? String
             AppManager.instance.requestFcmToken()
         }
+        else if message.name == "aspGet" {
+            
+        }
+        else if message.name == "apsPost" {
+            
+        }
         else if message.name == "checkMainPage" {
             if let body = message.body as? String, !body.isEmpty {
                 vLeftButtons.isHidden = true
                 lbTitleText.text = nil
+                ivTitle.isHidden = false
+                ivTitle.sd_setImage(with: URL(string: body)) { image, error, cacheType, imageURL in
+                    
+                }
             }
             else {
                 vLeftButtons.isHidden = false
                 lbTitleText.text = wkWebView.title
+                ivTitle.isHidden = true
             }
             // print("wkWebView.title : \(wkWebView.title)")
         }
         else if message.name == "showLoading" {
-            
+            if let body = message.body as? String, body == "open" {
+                imageLoadingPopup.show()
+            }
+            else {
+                imageLoadingPopup.hide()
+            }
+        }
+        else if message.name == "tokenError" {
+            self.alertPopup(message: "로그인 세션이 종료되어 로그인 화면으로 이동됩니다.") {
+                self.goLogin()
+            }
         }
     }
     

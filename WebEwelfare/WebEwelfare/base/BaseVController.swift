@@ -18,6 +18,9 @@ class BaseVController: UIViewController {
     
     // change scene
     func goLogin() {
+        AccountManager.instance.id = 0
+        AccountManager.instance.token = nil
+
         let vc = storyboard?.instantiateViewController(withIdentifier: "login") as! LoginVController
         present(vc, animated: false)
     }
@@ -43,6 +46,20 @@ class BaseVController: UIViewController {
                 UIApplication.shared.openURL(downloadUrl)
             }
         }
+    }
+    
+    func openUrl(_ path: String) -> Bool {
+        guard let url = URL(string: path), UIApplication.shared.canOpenURL(url) else {
+            return false
+        }
+        
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        else {
+            UIApplication.shared.openURL(url)
+        }
+        return true
     }
     
     func alertPopup(message: String, _ callback: @escaping ()->Void) {
