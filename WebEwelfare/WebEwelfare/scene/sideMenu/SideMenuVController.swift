@@ -165,7 +165,12 @@ class SideMenuVController: BaseVController {
             case .success(let upload, _, _):
                 upload.responseJSON { response in
                     let json = JSON(response.result.value!)
-                    print("upload json : \(json)")
+                    if let resResult = ResResult(JSONString: json.rawString()!) {
+                        if resResult.code == ResResultCode.Success.rawValue {
+                            // success
+                            return
+                        }
+                    }
                 }
             case .failure(let error):
                 print("Error in upload: \(error.localizedDescription)")
