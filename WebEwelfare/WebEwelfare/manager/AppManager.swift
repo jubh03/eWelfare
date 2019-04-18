@@ -100,13 +100,13 @@ class AppManager {
         }
     }
     
-    private let FCM_TOPIC_ON = "FCM_TOPIC_ON"
-    var isFcmTopicOn: Bool {
+    private let FCM_TOPIC_OFF = "FCM_TOPIC_OFF"
+    var isFcmTopicOff: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: FCM_TOPIC_ON)
+            return UserDefaults.standard.bool(forKey: FCM_TOPIC_OFF)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: FCM_TOPIC_ON)
+            UserDefaults.standard.set(newValue, forKey: FCM_TOPIC_OFF)
             UserDefaults.standard.synchronize()
         }
     }

@@ -25,7 +25,7 @@ class SplashVController: BaseVController {
                     self.goMain()
                 }
                 else {
-                    self.popupTokenError()
+                    self.goLogin()
                 }
             case ResResultCode.TokenError.rawValue:
                 self.popupTokenError()

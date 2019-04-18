@@ -13,14 +13,17 @@ class OtherWebVController: BaseVController {
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var lbTitle: UILabel!
+    @IBOutlet weak var btnHome: UIButton!
     
     private var wkWebView: WKWebView!
     private var newWkWebView: WKWebView?
     
     private let imageLoadingPopup = ImageLoadingPopup().create()
 
+    var isHideHome = false
     var shopUrl: String!
     var titleText: String?
+    var postParams: String?
     
     var tid: String?
     
@@ -53,20 +56,19 @@ class OtherWebVController: BaseVController {
         if wkWebView.canGoBack {
             wkWebView.goBack()
         }
+        else {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func onClickClose(_ sender: UIButton) {
-        let alertController = UIAlertController(title: "e복지", message: "e복지 페이지로 돌아가시겠습니까?", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "취소", style: .default, handler: { (action) in
-        }))
-        alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in
-            self.dismiss(animated: false, completion: nil)
-        }))
-        
-        self.present(alertController, animated: true, completion: nil)
+        // self.dismiss(animated: false, completion: nil)
+        self.goMain()
     }
     
     private func initView() {
+        btnHome.isHidden = isHideHome
+        
         if titleText != nil {
             lbTitle.text = titleText!
         }
@@ -94,19 +96,37 @@ class OtherWebVController: BaseVController {
         }
         
         var request = URLRequest(url: url)
-        request.addValue("iOS", forHTTPHeaderField: "platform")
-        request.addValue(AppManager.instance.bundleIdentifier!, forHTTPHeaderField: "package")
-        request.addValue(AppManager.instance.appVersion!, forHTTPHeaderField: "version")
-        if let token = AccountManager.instance.token {
-            request.addValue(token, forHTTPHeaderField: "token-ewelfare")
+        if let params = postParams, !params.isEmpty {
+            request.httpMethod = "POST"
+            request.httpBody = params.data(using: .utf8)
+            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            
+//            let task = URLSession.shared.dataTask(with: request) { (data : Data?, response : URLResponse?, error : Error?) in
+//                if data != nil {
+//                    if let returnString = String(data: data!, encoding: .utf8) {
+//                        self.wkWebView.loadHTMLString(returnString, baseURL: URL(string: urlPath)!)
+//                    }
+//                }
+//            }
+//            task.resume()
+            
+            wkWebView.load(request)
         }
-        
-//        var cookies = HTTPCookie.requestHeaderFields(with: HTTPCookieStorage.shared.cookies(for: request.url!)!)
-//        if let value = cookies["Cookie"] {
-//            request.addValue(value, forHTTPHeaderField: "Cookie")
-//        }
-        
-        wkWebView.load(request)
+        else {
+            request.addValue("iOS", forHTTPHeaderField: "platform")
+            request.addValue(AppManager.instance.bundleIdentifier!, forHTTPHeaderField: "package")
+            request.addValue(AppManager.instance.appVersion!, forHTTPHeaderField: "version")
+            if let token = AccountManager.instance.token {
+                request.addValue(token, forHTTPHeaderField: "token-ewelfare")
+            }
+
+            //        var cookies = HTTPCookie.requestHeaderFields(with: HTTPCookieStorage.shared.cookies(for: request.url!)!)
+            //        if let value = cookies["Cookie"] {
+            //            request.addValue(value, forHTTPHeaderField: "Cookie")
+            //        }
+
+            wkWebView.load(request)
+        }
     }
 
 }

@@ -50,10 +50,8 @@ class AccountManager {
             return UserDefaults.standard.string(forKey: ACCOUNT_TOKEN)
         }
         set {
-            if let token = newValue {
-                UserDefaults.standard.set(token, forKey: ACCOUNT_TOKEN)
-                UserDefaults.standard.synchronize()
-            }
+            UserDefaults.standard.set(newValue, forKey: ACCOUNT_TOKEN)
+            UserDefaults.standard.synchronize()
         }
     }
     
@@ -120,51 +118,19 @@ class AccountManager {
     
     func requestModifyPush(value:String, callback: @escaping (Int, String?) -> Void) {
         // url
-        let url: String = WDefine.API + "config/modify"
+        let url: String = WDefine.API + "config/push"
         
         Alamofire.upload(multipartFormData: { multipartFormData in
             self.setMultipartFormData(multipartFormData: multipartFormData, key: "push", value: value)
         }, usingThreshold: UInt64.init(), to: url, method: .post, headers: AlamofireHelper.instance.headers) { (result) in
             switch result {
-            case .success(let upload, _, _):
-                upload.responseJSON { response in
-                    var uploadUrl: [String] = []
-
-                    let json = JSON(response.result.value!)
-                    if let uploadApi = ResResult(JSONString: json.rawString()!) {
-//                        if uploadApi.result?.compare("SUCCESS") == .orderedSame, let linkList = uploadApi.data {
-//                            for link in linkList {
-//                                uploadUrl.append(link)
-//                            }
-//
-//                            callback(true, uploadUrl)
-//                            return
-//                        }
-                    }
-
-//                    callback(value.code, value.message)
-                }
-            case .failure(let error):
+            case .success( _, _, _):
+                callback(ResResultCode.Success.rawValue, nil)
+            case .failure( _):
                 callback(ResResultCode.Error.rawValue, nil)
             }
         }
-        
-//        // parameter
-//        var parameters: Parameters = Parameters()
-//        parameters["push"] = value
-//
-//        Alamofire.request(url,
-//                          method: .post,
-//                          parameters: parameters,
-//                          encoding: JSONEncoding.default,
-//                          headers: AlamofireHelper.instance.headers).responseObject { (response: DataResponse<ResResult>) in
-//                            if let value = response.result.value {
-//                                callback(value.code, value.message)
-//                            }
-//                            else {
-//                                callback(ResResultCode.Error.rawValue, nil)
-//                            }
-//        }
+
     }
 
     private func setMultipartFormData(multipartFormData: MultipartFormData, key: String, value: String?) {

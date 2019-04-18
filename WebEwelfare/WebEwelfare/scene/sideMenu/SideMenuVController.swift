@@ -19,16 +19,21 @@ class SideMenuVController: BaseVController {
     @IBOutlet weak var lbName: UILabel!
     @IBOutlet weak var lbPoint: UILabel!
     
+    @IBOutlet weak var vCollection: UICollectionView!
+    
     private let picker = UIImagePickerController()
     
     private var user: User?
     private var menu: [Menu]?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         picker.delegate = self
+        
+        vCollection.delegate = self
+        vCollection.dataSource = self
 
         initView()
         
@@ -67,27 +72,35 @@ class SideMenuVController: BaseVController {
     }
     
     @IBAction func onActionBar(_ sender: UIButton) {
-        var urlStr = WDefine.URL + "/mypage/order/list"
-        var titleStr = "주문내역"
+        var urlStr = ""
+        var titleStr = ""
+
+        if sender.tag == 1 {
+            urlStr = WDefine.URL + "mypage/order/list"
+            titleStr = "주문내역"
+        }
         if sender.tag == 2 {
-            urlStr = WDefine.URL + "/mypage/cart"
+            urlStr = WDefine.URL + "cart"
             titleStr = "장바구니"
         }
         else if sender.tag == 3 {
-            urlStr = WDefine.URL + "/mypage/coupon"
+            urlStr = WDefine.URL + "mypage/coupon"
             titleStr = "쿠폰함"
         }
         else if sender.tag == 4 {
-            urlStr = WDefine.URL + "/mypage/recent"
+            urlStr = WDefine.URL + "mypage/recent"
             titleStr = "최근 본 상품"
         }
         else if sender.tag == 5 {
-            urlStr = WDefine.URL + "/mypage/push"
+            urlStr = WDefine.URL + "mypage/push"
             titleStr = "푸시 리스트"
         }
         else if sender.tag == 6 {
-            urlStr = WDefine.URL + "/mypage/point"
+            urlStr = WDefine.URL + "mypage/point"
             titleStr = "포인트"
+        }
+        else {
+            return
         }
         
         let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
@@ -150,6 +163,7 @@ class SideMenuVController: BaseVController {
                           headers: AlamofireHelper.instance.headers).responseObject { (response: DataResponse<ResMenu>) in
                             if let value = response.result.value, value.code == ResResultCode.Success.rawValue {
                                 self.menu = value.data
+                                self.vCollection.reloadData()
                             }
         }
     }
@@ -168,6 +182,8 @@ class SideMenuVController: BaseVController {
                     if let resResult = ResResult(JSONString: json.rawString()!) {
                         if resResult.code == ResResultCode.Success.rawValue {
                             // success
+                            self.alertPopup(message: "프로필 사진이 업로드 되었습니다.") {
+                            }
                             return
                         }
                     }
@@ -193,3 +209,42 @@ extension SideMenuVController: UIImagePickerControllerDelegate, UINavigationCont
     }
 
 }
+
+
+extension SideMenuVController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return menu?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return menu![section].sub?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "menuCell", for: indexPath) as! SideMenuCollectionVCell
+        cell.updateData(vc: self, data: menu![indexPath.section].sub![indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        // Number of cells
+        let collectionViewWidth = (UIScreen.main.bounds.width * 0.8) / 2.0
+        let collectionViewHeight = CGFloat(48.0)
+        
+        return CGSize(width: collectionViewWidth, height: collectionViewHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let rView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "menuHeader", for: indexPath) as! SideMenuCollectionRView
+            rView.updateData(vc: self, data: menu![indexPath.section])
+            return rView
+        }
+        
+        return UICollectionReusableView()
+    }
+    
+}
+

@@ -19,7 +19,7 @@ class FcmHelper {
     }
     
     func fcmTopic() {
-        let isSubscribe = true
+        let isSubscribe = !AppManager.instance.isFcmTopicOff
         
         if isSubscribe {
             Messaging.messaging().subscribe(toTopic: NAME.FCM_TOPIC_ALL.rawValue)

@@ -103,6 +103,8 @@ class MainVController: BaseVController {
         return config
     }
     
+    
+    
     func loadUrl(urlPath: String) {
         guard let url = URL(string: urlPath) else {
             return
@@ -122,6 +124,55 @@ class MainVController: BaseVController {
 //        }
         
         wkWebView.load(request)
+    }
+    
+    private func parseStringComponents(_ param: String) -> [String: String] {
+        var dict: [String: String] = [:]
+        
+        if !param.isEmpty {
+            for item: String in param.components(separatedBy: "&") {
+                let parsedParam = item.components(separatedBy: "=")
+                dict[parsedParam[0]] = parsedParam[1]
+            }
+        }
+        
+        return dict
+    }
+    
+    private func makePostData(text: String?) -> String {
+        var postData = ""
+        
+        if let jsonDic = convertToDictionary(text: text) {
+            for data in jsonDic {
+                if postData.count > 0 {
+                    postData += "&"
+                }
+                
+                if let value = data.value as? String {
+                    postData += String(format: "%@=%@", data.key, value)
+                }
+                else if let value = data.value as? Int {
+                    postData += String(format: "%@=%d", data.key, value)
+                }
+            }
+        }
+        
+        return postData
+    }
+    
+    private func convertToDictionary(text: String?) -> [String: AnyObject]? {
+        if text == nil {
+            return nil
+        }
+        
+        if let data = text!.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject]
+            } catch {
+                // Handle Error
+            }
+        }
+        return nil
     }
 
 }
@@ -354,10 +405,27 @@ extension MainVController: WKScriptMessageHandler {
             AppManager.instance.requestFcmToken()
         }
         else if message.name == "aspGet" {
-            
+            if let body = message.body as? String {
+                let params = parseStringComponents(body)
+                if let title = params["title"], let url = params["url"] {
+                    let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
+                    vc.shopUrl = url
+                    vc.titleText = title
+                    present(vc, animated: false)
+                }
+            }
         }
         else if message.name == "apsPost" {
-            
+            if let body = message.body as? String {
+                let params = parseStringComponents(body)
+                if let title = params["title"], let url = params["url"], let json = params["data"] {
+                    let otherWebVC = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
+                    otherWebVC.shopUrl = url
+                    otherWebVC.titleText = title
+                    otherWebVC.postParams = makePostData(text: json)
+                    present(otherWebVC, animated: true)
+                }
+            }
         }
         else if message.name == "checkMainPage" {
             if let body = message.body as? String, !body.isEmpty {
@@ -365,7 +433,6 @@ extension MainVController: WKScriptMessageHandler {
                 lbTitleText.text = nil
                 ivTitle.isHidden = false
                 ivTitle.sd_setImage(with: URL(string: body)) { image, error, cacheType, imageURL in
-                    
                 }
             }
             else {

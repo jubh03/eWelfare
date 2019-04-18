@@ -14,6 +14,7 @@ class SettingVController: BaseVController {
     @IBOutlet weak var lbVersion: UILabel!
     @IBOutlet weak var switchNoti: UISwitch!
     @IBOutlet weak var btnUpdate: UIButton!
+    @IBOutlet weak var lbLatestVersion: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,13 +59,14 @@ class SettingVController: BaseVController {
         AccountManager.instance.config?.push = sender.isOn ? "Y" : "N"
         AccountManager.instance.requestModifyPush(value: sender.isOn ? "Y" : "N") { code, message in
             if code == ResResultCode.Success.rawValue {
-                AppManager.instance.isFcmTopicOn = sender.isOn
+                AppManager.instance.isFcmTopicOff = !sender.isOn
                 FcmHelper.instance.fcmTopic()
             }
         }
     }
     
     @IBAction func onActionUpdate(_ sender: UIButton) {
+        self.goMarket(appId: WDefine.eBokjiAppId)
     }
 
     private func updateConfig() {
@@ -73,9 +75,18 @@ class SettingVController: BaseVController {
             if let name = config.name {
                 lbName.text = "\(name) 님"
             }
-            if let version = config.version?.name, let appVersion = AppManager.instance.appVersion {
-                lbVersion.text = "\(version) / \(appVersion)"
+            
+            if let appVersion = AppManager.instance.appVersion {
+                lbVersion.text = "v\(appVersion)"
+                
+                if appVersion == config.version?.name {
+                    lbLatestVersion.isHidden = false
+                }
+                else {
+                    btnUpdate.isHidden = false
+                }
             }
+            
             switchNoti.isOn = isY(value: config.push)
         }
     }

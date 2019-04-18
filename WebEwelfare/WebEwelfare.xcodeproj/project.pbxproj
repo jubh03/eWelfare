@@ -100,6 +100,8 @@
 		D47CC1B4225BB89C0018AB3E /* icon_send_right.png in Resources */ = {isa = PBXBuildFile; fileRef = D47CC1B1225BB89C0018AB3E /* icon_send_right.png */; };
 		D47CC1B7225C64F50018AB3E /* btn_update.png in Resources */ = {isa = PBXBuildFile; fileRef = D47CC1B6225C64F50018AB3E /* btn_update.png */; };
 		D4A01E3D221FEF290066BA0E /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A01E3A221FEF290066BA0E /* logo.png */; };
+		D4B99B5B22640E21008EDD98 /* SideMenuCollectionVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B99B5A22640E21008EDD98 /* SideMenuCollectionVCell.swift */; };
+		D4B99B6C22644A8B008EDD98 /* SideMenuCollectionRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B99B6B22644A8B008EDD98 /* SideMenuCollectionRView.swift */; };
 		D4C433FF22561BA20042AD1F /* SplashVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C433FE22561BA20042AD1F /* SplashVController.swift */; };
 		D4C4340122561CBE0042AD1F /* ResResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4340022561CBE0042AD1F /* ResResult.swift */; };
 		D4C4340322561CDA0042AD1F /* ResLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4340222561CDA0042AD1F /* ResLogin.swift */; };
@@ -214,6 +216,8 @@
 		D47CC1B1225BB89C0018AB3E /* icon_send_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_send_right.png; sourceTree = "<group>"; };
 		D47CC1B6225C64F50018AB3E /* btn_update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_update.png; sourceTree = "<group>"; };
 		D4A01E3A221FEF290066BA0E /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		D4B99B5A22640E21008EDD98 /* SideMenuCollectionVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCollectionVCell.swift; sourceTree = "<group>"; };
+		D4B99B6B22644A8B008EDD98 /* SideMenuCollectionRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCollectionRView.swift; sourceTree = "<group>"; };
 		D4C433FE22561BA20042AD1F /* SplashVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVController.swift; sourceTree = "<group>"; };
 		D4C4340022561CBE0042AD1F /* ResResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResResult.swift; sourceTree = "<group>"; };
 		D4C4340222561CDA0042AD1F /* ResLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResLogin.swift; sourceTree = "<group>"; };
@@ -281,6 +285,7 @@
 		D4001CFF221C1D6F00080EB2 /* WebEwelfare */ = {
 			isa = PBXGroup;
 			children = (
+				D4B99B5C22641144008EDD98 /* support */,
 				D4001D5E221F992F00080EB2 /* WebEwelfare.entitlements */,
 				D4001D17221C1E1700080EB2 /* base */,
 				D4001D3A221CDE0400080EB2 /* data */,
@@ -468,6 +473,8 @@
 			isa = PBXGroup;
 			children = (
 				D405FC4F225DA7CE00FBCB58 /* SideMenuVController.swift */,
+				D4B99B5A22640E21008EDD98 /* SideMenuCollectionVCell.swift */,
+				D4B99B6B22644A8B008EDD98 /* SideMenuCollectionRView.swift */,
 			);
 			path = sideMenu;
 			sourceTree = "<group>";
@@ -479,6 +486,13 @@
 				D405FC6D225EE81700FBCB58 /* ImageLoadingPopup.xib */,
 			);
 			path = popup;
+			sourceTree = "<group>";
+		};
+		D4B99B5C22641144008EDD98 /* support */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = support;
 			sourceTree = "<group>";
 		};
 		D4C433FD22561B5D0042AD1F /* splash */ = {
@@ -735,6 +749,7 @@
 			files = (
 				D4001D39221CDD7300080EB2 /* AlamofireHelper.swift in Sources */,
 				D4001D03221C1D6F00080EB2 /* MainVController.swift in Sources */,
+				D4B99B5B22640E21008EDD98 /* SideMenuCollectionVCell.swift in Sources */,
 				D4C4340822561D490042AD1F /* ExtAlert.swift in Sources */,
 				D4001D1B221C1E7B00080EB2 /* AppManager.swift in Sources */,
 				D4C4340F2256214B0042AD1F /* LoginVController.swift in Sources */,
@@ -749,6 +764,7 @@
 				D4DD19F82255218E006FAF33 /* SettingVController.swift in Sources */,
 				D4C4340522561CFA0042AD1F /* ResConfig.swift in Sources */,
 				D405FC70225EE83700FBCB58 /* ImageLoadingPopup.swift in Sources */,
+				D4B99B6C22644A8B008EDD98 /* SideMenuCollectionRView.swift in Sources */,
 				D4001D1D221C1E8600080EB2 /* AccountManager.swift in Sources */,
 				D4001D01221C1D6F00080EB2 /* AppDelegate.swift in Sources */,
 				D4C4340A22561D7B0042AD1F /* UIViewHelper.swift in Sources */,
@@ -907,7 +923,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZN8U54R83Q;
 				INFOPLIST_FILE = WebEwelfare/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -928,7 +944,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZN8U54R83Q;
 				INFOPLIST_FILE = WebEwelfare/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
