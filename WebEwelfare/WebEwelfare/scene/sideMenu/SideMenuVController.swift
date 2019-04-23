@@ -79,7 +79,7 @@ class SideMenuVController: BaseVController {
             urlStr = WDefine.URL + "mypage/order/list"
             titleStr = "주문내역"
         }
-        if sender.tag == 2 {
+        else if sender.tag == 2 {
             urlStr = WDefine.URL + "cart"
             titleStr = "장바구니"
         }
@@ -145,9 +145,16 @@ class SideMenuVController: BaseVController {
                           parameters: nil,
                           encoding: JSONEncoding.default,
                           headers: AlamofireHelper.instance.headers).responseObject { (response: DataResponse<ResUser>) in
-                            if let value = response.result.value, value.code == ResResultCode.Success.rawValue {
-                                self.user = value.data
-                                self.updateUser()
+                            if let value = response.result.value {
+                                if value.code == ResResultCode.Success.rawValue {
+                                    self.user = value.data
+                                    self.updateUser()
+                                }
+                                else if value.code == ResResultCode.TokenError.rawValue {
+                                    self.alertPopup(message: "로그인 세션이 종료되어 로그인 화면으로 이동됩니다.") {
+                                        self.goLogin()
+                                    }
+                                }
                             }
         }
     }
@@ -161,9 +168,16 @@ class SideMenuVController: BaseVController {
                           parameters: nil,
                           encoding: JSONEncoding.default,
                           headers: AlamofireHelper.instance.headers).responseObject { (response: DataResponse<ResMenu>) in
-                            if let value = response.result.value, value.code == ResResultCode.Success.rawValue {
-                                self.menu = value.data
-                                self.vCollection.reloadData()
+                            if let value = response.result.value {
+                                if value.code == ResResultCode.Success.rawValue {
+                                    self.menu = value.data
+                                    self.vCollection.reloadData()
+                                }
+                                else if value.code == ResResultCode.TokenError.rawValue {
+                                    self.alertPopup(message: "로그인 세션이 종료되어 로그인 화면으로 이동됩니다.") {
+                                        self.goLogin()
+                                    }
+                                }
                             }
         }
     }
@@ -185,6 +199,11 @@ class SideMenuVController: BaseVController {
                             self.alertPopup(message: "프로필 사진이 업로드 되었습니다.") {
                             }
                             return
+                        }
+                        else if resResult.code == ResResultCode.TokenError.rawValue {
+                            self.alertPopup(message: "로그인 세션이 종료되어 로그인 화면으로 이동됩니다.") {
+                                self.goLogin()
+                            }
                         }
                     }
                 }

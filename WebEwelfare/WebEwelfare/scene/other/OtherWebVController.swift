@@ -69,15 +69,15 @@ class OtherWebVController: BaseVController {
     private func initView() {
         btnHome.isHidden = isHideHome
         
-        if titleText != nil {
-            lbTitle.text = titleText!
-        }
+        lbTitle.text = titleText!
     }
     
     private func getWebViewConfiguration() -> WKWebViewConfiguration {
         let config = WKWebViewConfiguration()
 
         let contentController = WKUserContentController()
+        contentController.add(self, name:"aspGet")
+        contentController.add(self, name:"aspPost")
         contentController.add(self, name:"showLoading")
         contentController.add(self, name:"tokenError")
         config.userContentController = contentController
@@ -127,6 +127,55 @@ class OtherWebVController: BaseVController {
 
             wkWebView.load(request)
         }
+    }
+    
+    private func parseStringComponents(_ param: String) -> [String: String] {
+        var dict: [String: String] = [:]
+        
+        if !param.isEmpty {
+            for item: String in param.components(separatedBy: "&") {
+                let parsedParam = item.components(separatedBy: "=")
+                dict[parsedParam[0]] = parsedParam[1]
+            }
+        }
+        
+        return dict
+    }
+    
+    private func makePostData(text: String?) -> String {
+        var postData = ""
+        
+        if let jsonDic = convertToDictionary(text: text) {
+            for data in jsonDic {
+                if postData.count > 0 {
+                    postData += "&"
+                }
+                
+                if let value = data.value as? String {
+                    postData += String(format: "%@=%@", data.key, value)
+                }
+                else if let value = data.value as? Int {
+                    postData += String(format: "%@=%d", data.key, value)
+                }
+            }
+        }
+        
+        return postData
+    }
+    
+    private func convertToDictionary(text: String?) -> [String: AnyObject]? {
+        if text == nil {
+            return nil
+        }
+        
+        if let data = text!.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject]
+            } catch {
+                // Handle Error
+            }
+        }
+        return nil
     }
 
 }
@@ -288,7 +337,32 @@ extension OtherWebVController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         print("[[ OtherWeb - JavaScript ]] name : \(message.name), body : \(message.body)")
         
-        if message.name == "showLoading" {
+        if message.name == "aspGet" {
+            if let body = message.body as? String {
+                let params = parseStringComponents(body)
+                if let title = params["title"], let url = params["url"] {
+                    self.shopUrl = url
+                    self.titleText = title
+                    
+                    self.lbTitle.text = titleText!
+                    self.loadUrl(urlPath: shopUrl)
+                }
+            }
+        }
+        else if message.name == "aspPost" {
+            if let body = message.body as? String {
+                let params = parseStringComponents(body)
+                if let title = params["title"], let url = params["url"], let json = params["data"] {
+                    self.shopUrl = url
+                    self.titleText = title
+                    self.postParams = makePostData(text: json)
+                    
+                    self.lbTitle.text = titleText!
+                    self.loadUrl(urlPath: shopUrl)
+                }
+            }
+        }
+        else if message.name == "showLoading" {
             if let body = message.body as? String, body == "open" {
                 imageLoadingPopup.show()
             }

@@ -24,6 +24,11 @@ class SettingVController: BaseVController {
             if code == ResResultCode.Success.rawValue {
                 self.updateConfig()
             }
+            else if code == ResResultCode.TokenError.rawValue {
+                self.alertPopup(message: "로그인 세션이 종료되어 로그인 화면으로 이동됩니다.") {
+                    self.goLogin()
+                }
+            }
             else {
                 self.alertPopup(message: message!) {
                     self.dismiss(animated: true, completion: nil)
@@ -61,6 +66,11 @@ class SettingVController: BaseVController {
             if code == ResResultCode.Success.rawValue {
                 AppManager.instance.isFcmTopicOff = !sender.isOn
                 FcmHelper.instance.fcmTopic()
+            }
+            else if code == ResResultCode.TokenError.rawValue {
+                self.alertPopup(message: "로그인 세션이 종료되어 로그인 화면으로 이동됩니다.") {
+                    self.goLogin()
+                }
             }
         }
     }

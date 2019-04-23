@@ -415,7 +415,7 @@ extension MainVController: WKScriptMessageHandler {
                 }
             }
         }
-        else if message.name == "apsPost" {
+        else if message.name == "aspPost" {
             if let body = message.body as? String {
                 let params = parseStringComponents(body)
                 if let title = params["title"], let url = params["url"], let json = params["data"] {
