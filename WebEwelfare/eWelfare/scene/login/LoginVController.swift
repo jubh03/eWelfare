@@ -52,11 +52,11 @@ class LoginVController: BaseVController {
     }
     
     @IBAction func onActionCertify(_ sender: Any) {
-        let otherWebVC = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
-        otherWebVC.isHideHome = true
-        otherWebVC.shopUrl = WDefine.URL + "member/cert"
-        otherWebVC.titleText = "e복지 회원인증"
-        present(otherWebVC, animated: true)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
+        vc.isHideHome = true
+        vc.shopUrl = WDefine.URL + "member/cert"
+        vc.titleText = "e복지 회원인증"
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     public func isValidData() -> Bool {

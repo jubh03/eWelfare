@@ -19,7 +19,7 @@ class OtherWebVController: BaseVController {
     private var newWkWebView: WKWebView?
     
     private let imageLoadingPopup = ImageLoadingPopup().create()
-
+    
     var isHideHome = false
     var shopUrl: String!
     var titleText: String?
@@ -57,13 +57,13 @@ class OtherWebVController: BaseVController {
             wkWebView.goBack()
         }
         else {
-            dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
     @IBAction func onClickClose(_ sender: UIButton) {
-        // self.dismiss(animated: false, completion: nil)
-        self.goMain()
+        NotificationCenter.default.post(name: Notification.Name("loadHome"), object: nil, userInfo: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     private func initView() {

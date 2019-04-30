@@ -27,7 +27,7 @@ class SideMenuCollectionVCell: UICollectionViewCell {
             let otherWebVC = vc?.storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
             otherWebVC.shopUrl = data?.url
             otherWebVC.titleText = data?.title
-            vc?.present(otherWebVC, animated: true)
+            vc?.nextViewController(vc: otherWebVC)
         }
     }
     

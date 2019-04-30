@@ -22,12 +22,12 @@ class BaseVController: UIViewController {
         AccountManager.instance.token = nil
 
         let vc = storyboard?.instantiateViewController(withIdentifier: "login") as! LoginVController
-        present(vc, animated: false)
+        self.navigationController?.pushViewController(vc, animated: false)
     }
     
     func goMain() {
         let vc = storyboard?.instantiateViewController(withIdentifier: "mainWeb") as! MainVController
-        present(vc, animated: false)
+        self.navigationController?.pushViewController(vc, animated: false)
     }
     
     func goSetting() {

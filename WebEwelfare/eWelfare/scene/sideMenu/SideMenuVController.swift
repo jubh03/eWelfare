@@ -106,7 +106,7 @@ class SideMenuVController: BaseVController {
         let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
         vc.shopUrl = urlStr
         vc.titleText = titleStr
-        present(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     private func initView() {
@@ -249,7 +249,7 @@ extension SideMenuVController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         // Number of cells
-        let collectionViewWidth = (UIScreen.main.bounds.width * 0.8) / 2.0
+        let collectionViewWidth = self.view.frame.width / 2.0
         let collectionViewHeight = CGFloat(48.0)
         
         return CGSize(width: collectionViewWidth, height: collectionViewHeight)
@@ -267,3 +267,14 @@ extension SideMenuVController: UICollectionViewDelegate, UICollectionViewDataSou
     
 }
 
+
+extension SideMenuVController: SideMenuProtocol {
+    
+    func nextViewController(vc: BaseVController?) {
+        if vc == nil {
+            return
+        }
+        self.navigationController?.pushViewController(vc!, animated: true)
+    }
+    
+}

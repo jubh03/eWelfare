@@ -31,6 +31,8 @@ class MainVController: BaseVController {
     override func loadView() {
         super.loadView()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(loadHome), name: Notification.Name("loadHome"), object: nil)
+        
         wkWebView = WKWebView(frame: containerView.frame, configuration: getWebViewConfiguration())
         wkWebView.uiDelegate = self
         wkWebView.navigationDelegate = self
@@ -81,6 +83,10 @@ class MainVController: BaseVController {
     
     @IBAction func onActionSearch(_ sender: Any) {
         presenter.loadSearch()
+    }
+    
+    @objc func loadHome(noti: NSNotification) {
+        presenter.loadHome()
     }
     
     private func getWebViewConfiguration() -> WKWebViewConfiguration {
@@ -254,16 +260,6 @@ extension MainVController: WKNavigationDelegate {
         
         if let urlStr = navigationAction.request.url?.absoluteString {
             print("Main 요청된 URL ==> \(urlStr)")
-            
-            if isOtherWeb(urlStr: urlStr) {
-                let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
-                vc.shopUrl = urlStr
-                vc.titleText = getOtherWebTitle(urlStr: urlStr)
-                present(vc, animated: false)
-                
-                decisionHandler(.cancel)
-                return
-            }
         }
         
         // iOS10 신한, 삼성, NH 등 앱카드 관련 ///////////////////
@@ -339,59 +335,6 @@ extension MainVController: WKNavigationDelegate {
         decisionHandler(.allow)
     }
     
-    private func isOtherWeb(urlStr: String) -> Bool {
-        let otherWebUrl = [
-            // 쇼핑 > 특가몰
-            "m.ewelfare.net/asp/indiand/sso",
-            // 여행 > 특가숙박
-            "goodplacehere.com",
-            // 피트니스 > TLX시작하기
-            // "tlx.co.kr",
-            // 생활 > 심부름
-            "anyman25.com",
-            "appa.anyman.co.kr",
-            // 대우전자 > 내폰팔기
-            "dws.cuebiz.co.kr",
-            // 내폰사기
-            "m.nanumphone.com",
-            "shopmns.com/kbizwell",
-            // 영화 > 이미지 선택
-            "http://m.movie.yes24.com",
-            // 교육 > 근로자카드 > 신청하기
-            "m.ewelfare.net/asp/hunet/sso",
-        ]
-        
-        for url in otherWebUrl {
-            if urlStr.contains(url) {
-                return true
-            }
-        }
-        return false
-    }
-    
-    private func getOtherWebTitle(urlStr: String) -> String? {
-        let otherWebUrl = [
-            "m.ewelfare.net/asp/indiand/sso" : "특가몰",
-            "goodplacehere.com" : "특가숙박",
-            // "tlx.co.kr" : "TLX시작하기",
-            "anyman25.com" : "심부름",
-            "appa.anyman.co.kr" : "심부름",
-            "dws.cuebiz.co.kr" : "내폰팔기",
-            "m.nanumphone.com" : "내폰사기",
-            "shopmns.com/kbizwell" : "내폰사기",
-            "http://m.movie.yes24.com" : "영화",
-            "m.ewelfare.net/asp/hunet/sso" : "근로자카드"
-        ]
-        
-        for url in otherWebUrl {
-            if urlStr.contains(url.key) {
-                return url.value
-            }
-        }
-
-        return nil
-    }
-    
 }
 
 
@@ -411,7 +354,7 @@ extension MainVController: WKScriptMessageHandler {
                     let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
                     vc.shopUrl = url
                     vc.titleText = title
-                    present(vc, animated: false)
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
         }
@@ -419,11 +362,11 @@ extension MainVController: WKScriptMessageHandler {
             if let body = message.body as? String {
                 let params = parseStringComponents(body)
                 if let title = params["title"], let url = params["url"], let json = params["data"] {
-                    let otherWebVC = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
-                    otherWebVC.shopUrl = url
-                    otherWebVC.titleText = title
-                    otherWebVC.postParams = makePostData(text: json)
-                    present(otherWebVC, animated: true)
+                    let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
+                    vc.shopUrl = url
+                    vc.titleText = title
+                    vc.postParams = makePostData(text: json)
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
         }

@@ -27,7 +27,7 @@ class SideMenuCollectionRView: UICollectionReusableView {
         otherWebVC.shopUrl = data?.url
         otherWebVC.titleText = data?.title
         otherWebVC.postParams = makePostData(text: data?.json)
-        vc?.present(otherWebVC, animated: true)
+        vc?.nextViewController(vc: otherWebVC)
     }
     
     private func makePostData(text: String?) -> String {

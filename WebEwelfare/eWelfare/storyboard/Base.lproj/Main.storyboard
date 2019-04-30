@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dsY-d3-Huf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kZa-cs-euV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,7 +13,7 @@
         <!--MainV Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="mainWeb" id="BYZ-38-t0r" customClass="MainVController" customModule="WebEwelfare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainWeb" id="BYZ-38-t0r" customClass="MainVController" customModule="eWelfare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -149,7 +149,7 @@
         <!--Side MenuV Controller-->
         <scene sceneID="J6n-rR-PZP">
             <objects>
-                <viewController id="3Xa-cz-VN1" customClass="SideMenuVController" customModule="WebEwelfare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3Xa-cz-VN1" customClass="SideMenuVController" customModule="eWelfare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Tl9-Br-xwx">
                         <rect key="frame" x="0.0" y="0.0" width="355" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -529,7 +529,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="menuCell" id="Ssb-cq-sq1" customClass="SideMenuCollectionVCell" customModule="WebEwelfare" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="menuCell" id="Ssb-cq-sq1" customClass="SideMenuCollectionVCell" customModule="eWelfare" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="48" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -579,7 +579,7 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="menuHeader" id="fqe-7n-drk" customClass="SideMenuCollectionRView" customModule="WebEwelfare" customModuleProvider="target">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="menuHeader" id="fqe-7n-drk" customClass="SideMenuCollectionRView" customModule="eWelfare" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="355" height="48"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -646,7 +646,7 @@
         <!--Other WebV Controller-->
         <scene sceneID="4sA-6k-wqB">
             <objects>
-                <viewController storyboardIdentifier="otherWeb" id="gTX-ay-393" customClass="OtherWebVController" customModule="WebEwelfare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="otherWeb" id="gTX-ay-393" customClass="OtherWebVController" customModule="eWelfare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gRi-jd-GSI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -724,7 +724,7 @@
         <!--SettingV Controller-->
         <scene sceneID="0KW-xg-5ha">
             <objects>
-                <viewController storyboardIdentifier="setting" id="prg-nc-RLn" customClass="SettingVController" customModule="WebEwelfare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="setting" id="prg-nc-RLn" customClass="SettingVController" customModule="eWelfare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="abu-VQ-NmV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1057,10 +1057,25 @@
             </objects>
             <point key="canvasLocation" x="-674" y="2226"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="SpU-R4-TvT">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="kZa-cs-euV" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="k7J-r5-hD5">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="dsY-d3-Huf" kind="relationship" relationship="rootViewController" id="4bj-BO-COA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZLb-jn-SRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1420" y="27"/>
+        </scene>
         <!--SplashV Controller-->
         <scene sceneID="px6-TW-OCw">
             <objects>
-                <viewController id="dsY-d3-Huf" customClass="SplashVController" customModule="WebEwelfare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dsY-d3-Huf" customClass="SplashVController" customModule="eWelfare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="k61-tb-Ghl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1086,6 +1101,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2So-pU-FZP"/>
                     </view>
+                    <navigationItem key="navigationItem" id="XEe-KL-yXs"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uyv-OD-2Xd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1094,7 +1110,7 @@
         <!--LoginV Controller-->
         <scene sceneID="4Pf-ss-Zca">
             <objects>
-                <viewController storyboardIdentifier="login" id="Ell-tH-Ul8" customClass="LoginVController" customModule="WebEwelfare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="login" id="Ell-tH-Ul8" customClass="LoginVController" customModule="eWelfare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7PC-wT-7lq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1231,10 +1247,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="btn_alarm.png" width="140" height="140"/>
+        <image name="btn_alarm.png" width="35" height="35"/>
         <image name="btn_close.png" width="35" height="35"/>
         <image name="btn_cscenter.png" width="46" height="46"/>
-        <image name="btn_logout.png" width="108" height="31"/>
+        <image name="btn_logout.png" width="108" height="30.5"/>
         <image name="btn_pic.png" width="20" height="20"/>
         <image name="btn_point_view.png" width="20" height="20"/>
         <image name="btn_setup.png" width="35" height="35"/>
@@ -1242,10 +1258,10 @@
         <image name="btn_titlebar_home.png" width="33" height="33"/>
         <image name="btn_titlebar_search.png" width="33" height="33"/>
         <image name="btn_titlebar_sidemenu.png" width="33" height="33"/>
-        <image name="btn_update.png" width="288" height="120"/>
+        <image name="btn_update.png" width="72" height="30"/>
         <image name="icon_cart.png" width="40" height="40"/>
         <image name="icon_coupon.png" width="40" height="40"/>
-        <image name="icon_lock.png" width="11" height="15"/>
+        <image name="icon_lock.png" width="11" height="14.5"/>
         <image name="icon_order_list.png" width="40" height="40"/>
         <image name="icon_recent.png" width="40" height="40"/>
         <image name="icon_send_right.png" width="24" height="24"/>

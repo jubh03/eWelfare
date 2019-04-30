@@ -27,6 +27,7 @@
 		D405FC50225DA7CE00FBCB58 /* SideMenuVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D405FC4F225DA7CE00FBCB58 /* SideMenuVController.swift */; };
 		D405FC6E225EE81700FBCB58 /* ImageLoadingPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = D405FC6D225EE81700FBCB58 /* ImageLoadingPopup.xib */; };
 		D405FC70225EE83700FBCB58 /* ImageLoadingPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D405FC6F225EE83700FBCB58 /* ImageLoadingPopup.swift */; };
+		D427479F2278656500B2F7F1 /* SideMenuProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D427479E2278656500B2F7F1 /* SideMenuProtocol.swift */; };
 		D4B99B5B22640E21008EDD98 /* SideMenuCollectionVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B99B5A22640E21008EDD98 /* SideMenuCollectionVCell.swift */; };
 		D4B99B6C22644A8B008EDD98 /* SideMenuCollectionRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B99B6B22644A8B008EDD98 /* SideMenuCollectionRView.swift */; };
 		D4C433FF22561BA20042AD1F /* SplashVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C433FE22561BA20042AD1F /* SplashVController.swift */; };
@@ -147,6 +148,7 @@
 		D405FC4F225DA7CE00FBCB58 /* SideMenuVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVController.swift; sourceTree = "<group>"; };
 		D405FC6D225EE81700FBCB58 /* ImageLoadingPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageLoadingPopup.xib; sourceTree = "<group>"; };
 		D405FC6F225EE83700FBCB58 /* ImageLoadingPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingPopup.swift; sourceTree = "<group>"; };
+		D427479E2278656500B2F7F1 /* SideMenuProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuProtocol.swift; sourceTree = "<group>"; };
 		D4B99B5A22640E21008EDD98 /* SideMenuCollectionVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCollectionVCell.swift; sourceTree = "<group>"; };
 		D4B99B6B22644A8B008EDD98 /* SideMenuCollectionRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCollectionRView.swift; sourceTree = "<group>"; };
 		D4C433FE22561BA20042AD1F /* SplashVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVController.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				D4001D37221CDD5600080EB2 /* helper */,
 				D4001D16221C1E1100080EB2 /* manager */,
 				D405FC6C225EE7F800FBCB58 /* popup */,
+				D427479B2278622400B2F7F1 /* protocol */,
 				D4001D2A221CC70800080EB2 /* resources */,
 				D4001D12221C1D9800080EB2 /* scene */,
 				D4001D13221C1DA300080EB2 /* storyboard */,
@@ -498,6 +501,14 @@
 				D405FC6D225EE81700FBCB58 /* ImageLoadingPopup.xib */,
 			);
 			path = popup;
+			sourceTree = "<group>";
+		};
+		D427479B2278622400B2F7F1 /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				D427479E2278656500B2F7F1 /* SideMenuProtocol.swift */,
+			);
+			path = protocol;
 			sourceTree = "<group>";
 		};
 		D4B99B5C22641144008EDD98 /* support */ = {
@@ -764,6 +775,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4001D39221CDD7300080EB2 /* AlamofireHelper.swift in Sources */,
+				D427479F2278656500B2F7F1 /* SideMenuProtocol.swift in Sources */,
 				D4001D03221C1D6F00080EB2 /* MainVController.swift in Sources */,
 				D4B99B5B22640E21008EDD98 /* SideMenuCollectionVCell.swift in Sources */,
 				D4C4340822561D490042AD1F /* ExtAlert.swift in Sources */,

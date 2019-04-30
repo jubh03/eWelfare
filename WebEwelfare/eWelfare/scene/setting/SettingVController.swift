@@ -56,7 +56,7 @@ class SettingVController: BaseVController {
         
         vc.shopUrl = AccountManager.instance.config?.url
         vc.titleText = "회원정보관리"
-        present(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     // 알림 설정
