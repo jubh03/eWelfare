@@ -24,7 +24,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>byfi.com.WebEwelfare</string>
+			<string>byfi.com.eWelfare</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>eWelfare</string>

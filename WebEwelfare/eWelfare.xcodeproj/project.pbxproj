@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C7E81A4CC00F1CC6611055C0 /* Pods_WebEwelfare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F85F7B66502BF2035E6DFBD4 /* Pods_WebEwelfare.framework */; };
+		A47B333A9A5664203D15F7E4 /* Pods_eWelfare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCE1BFD933EFD3F2FF107AC /* Pods_eWelfare.framework */; };
 		D4001D01221C1D6F00080EB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4001D00221C1D6F00080EB2 /* AppDelegate.swift */; };
 		D4001D03221C1D6F00080EB2 /* MainVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4001D02221C1D6F00080EB2 /* MainVController.swift */; };
 		D4001D06221C1D6F00080EB2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4001D04221C1D6F00080EB2 /* Main.storyboard */; };
@@ -123,8 +123,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		14B7F229E5EA1ED1A27ED3FF /* Pods-WebEwelfare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebEwelfare.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebEwelfare/Pods-WebEwelfare.release.xcconfig"; sourceTree = "<group>"; };
-		71162A7DA62428B71B81A91B /* Pods-WebEwelfare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebEwelfare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebEwelfare/Pods-WebEwelfare.debug.xcconfig"; sourceTree = "<group>"; };
+		3D285EA7314C338D1CCA6358 /* Pods-eWelfare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eWelfare.release.xcconfig"; path = "Pods/Target Support Files/Pods-eWelfare/Pods-eWelfare.release.xcconfig"; sourceTree = "<group>"; };
+		3FCE1BFD933EFD3F2FF107AC /* Pods_eWelfare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eWelfare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4001CFD221C1D6F00080EB2 /* eWelfare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eWelfare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4001D00221C1D6F00080EB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4001D02221C1D6F00080EB2 /* MainVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVController.swift; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 		D4001D24221C207B00080EB2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D4001D28221C26ED00080EB2 /* OtherWebVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherWebVController.swift; sourceTree = "<group>"; };
 		D4001D38221CDD7300080EB2 /* AlamofireHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireHelper.swift; sourceTree = "<group>"; };
-		D4001D5E221F992F00080EB2 /* WebEwelfare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WebEwelfare.entitlements; sourceTree = "<group>"; };
+		D4001D5E221F992F00080EB2 /* eWelfare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = eWelfare.entitlements; sourceTree = "<group>"; };
 		D405FC4A225DA59900FBCB58 /* ResUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResUser.swift; sourceTree = "<group>"; };
 		D405FC4C225DA5A300FBCB58 /* ResMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResMenu.swift; sourceTree = "<group>"; };
 		D405FC4F225DA7CE00FBCB58 /* SideMenuVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVController.swift; sourceTree = "<group>"; };
@@ -240,7 +240,7 @@
 		D4EB8AC7226998AC006E8DC5 /* btn_titlebar_sidemenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_titlebar_sidemenu@2x.png"; sourceTree = "<group>"; };
 		D4EB8AC8226998AC006E8DC5 /* icon_recent@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_recent@3x.png"; sourceTree = "<group>"; };
 		D4EB8AC9226998AC006E8DC5 /* btn_titlebar_back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_titlebar_back@3x.png"; sourceTree = "<group>"; };
-		F85F7B66502BF2035E6DFBD4 /* Pods_WebEwelfare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WebEwelfare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F18BDBD75A7F51F938C95170 /* Pods-eWelfare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eWelfare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eWelfare/Pods-eWelfare.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,7 +248,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7E81A4CC00F1CC6611055C0 /* Pods_WebEwelfare.framework in Frameworks */,
+				A47B333A9A5664203D15F7E4 /* Pods_eWelfare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,8 +258,8 @@
 		58ACEB2140A1E2321B612D3E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				71162A7DA62428B71B81A91B /* Pods-WebEwelfare.debug.xcconfig */,
-				14B7F229E5EA1ED1A27ED3FF /* Pods-WebEwelfare.release.xcconfig */,
+				F18BDBD75A7F51F938C95170 /* Pods-eWelfare.debug.xcconfig */,
+				3D285EA7314C338D1CCA6358 /* Pods-eWelfare.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -267,7 +267,7 @@
 		5DDEA8705F307F72F6BCBC34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F85F7B66502BF2035E6DFBD4 /* Pods_WebEwelfare.framework */,
+				3FCE1BFD933EFD3F2FF107AC /* Pods_eWelfare.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -275,7 +275,7 @@
 		D4001CF4221C1D6F00080EB2 = {
 			isa = PBXGroup;
 			children = (
-				D4001CFF221C1D6F00080EB2 /* WebEwelfare */,
+				D4001CFF221C1D6F00080EB2 /* eWelfare */,
 				D4001CFE221C1D6F00080EB2 /* Products */,
 				58ACEB2140A1E2321B612D3E /* Pods */,
 				5DDEA8705F307F72F6BCBC34 /* Frameworks */,
@@ -290,11 +290,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D4001CFF221C1D6F00080EB2 /* WebEwelfare */ = {
+		D4001CFF221C1D6F00080EB2 /* eWelfare */ = {
 			isa = PBXGroup;
 			children = (
 				D4B99B5C22641144008EDD98 /* support */,
-				D4001D5E221F992F00080EB2 /* WebEwelfare.entitlements */,
+				D4001D5E221F992F00080EB2 /* eWelfare.entitlements */,
 				D4001D17221C1E1700080EB2 /* base */,
 				D4001D3A221CDE0400080EB2 /* data */,
 				D4C4340622561D2F0042AD1F /* extention */,
@@ -310,7 +310,7 @@
 				D4001D0C221C1D7100080EB2 /* Info.plist */,
 				D4001D14221C1DF300080EB2 /* WDefine.swift */,
 			);
-			path = WebEwelfare;
+			path = eWelfare;
 			sourceTree = "<group>";
 		};
 		D4001D12221C1D9800080EB2 /* scene */ = {
@@ -711,7 +711,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WebEwelfare-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-eWelfare-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -726,7 +726,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-WebEwelfare/Pods-WebEwelfare-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-eWelfare/Pods-eWelfare-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
@@ -753,7 +753,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WebEwelfare/Pods-WebEwelfare-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-eWelfare/Pods-eWelfare-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -932,13 +932,13 @@
 		};
 		D4001D10221C1D7100080EB2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71162A7DA62428B71B81A91B /* Pods-WebEwelfare.debug.xcconfig */;
+			baseConfigurationReference = F18BDBD75A7F51F938C95170 /* Pods-eWelfare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = WebEwelfare/WebEwelfare.entitlements;
+				CODE_SIGN_ENTITLEMENTS = eWelfare/eWelfare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZN8U54R83Q;
-				INFOPLIST_FILE = WebEwelfare/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/eWelfare/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -953,13 +953,13 @@
 		};
 		D4001D11221C1D7100080EB2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 14B7F229E5EA1ED1A27ED3FF /* Pods-WebEwelfare.release.xcconfig */;
+			baseConfigurationReference = 3D285EA7314C338D1CCA6358 /* Pods-eWelfare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = WebEwelfare/WebEwelfare.entitlements;
+				CODE_SIGN_ENTITLEMENTS = eWelfare/eWelfare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZN8U54R83Q;
-				INFOPLIST_FILE = WebEwelfare/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/eWelfare/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
