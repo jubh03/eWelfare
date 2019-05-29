@@ -45,6 +45,12 @@ class SettingVController: BaseVController {
     @IBAction func onActionLogout(_ sender: UIButton) {
         commonPopup(message: "로그아웃 하시겠습니까?", leftButtonText: "아니오", rightButtonText: "예") { isYes in
             if isYes {
+//                AccountManager.instance.id = 0
+//                AccountManager.instance.token = nil
+//                
+//                self.dismiss(animated: false) {
+//                    self.navigationController?.popToRootViewController(animated: true)
+//                }
                 self.goLogin()
             }
         }

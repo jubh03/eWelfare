@@ -39,6 +39,7 @@
 		D4C4340C22561D970042AD1F /* ValidHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4340B22561D970042AD1F /* ValidHelper.swift */; };
 		D4C4340F2256214B0042AD1F /* LoginVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C4340E2256214B0042AD1F /* LoginVController.swift */; };
 		D4C82383222528AE001A2DC8 /* FcmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C82382222528AE001A2DC8 /* FcmHelper.swift */; };
+		D4DC76C2229D3E1800649F0A /* AddressWebVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DC76C1229D3E1800649F0A /* AddressWebVController.swift */; };
 		D4DD19F82255218E006FAF33 /* SettingVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DD19F72255218E006FAF33 /* SettingVController.swift */; };
 		D4EB8ACA226998AD006E8DC5 /* btn_pic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D4EB8A79226998A2006E8DC5 /* btn_pic@3x.png */; };
 		D4EB8ACB226998AD006E8DC5 /* image_loading_2.png in Resources */ = {isa = PBXBuildFile; fileRef = D4EB8A7A226998A2006E8DC5 /* image_loading_2.png */; };
@@ -160,6 +161,7 @@
 		D4C4340B22561D970042AD1F /* ValidHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidHelper.swift; sourceTree = "<group>"; };
 		D4C4340E2256214B0042AD1F /* LoginVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVController.swift; sourceTree = "<group>"; };
 		D4C82382222528AE001A2DC8 /* FcmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FcmHelper.swift; sourceTree = "<group>"; };
+		D4DC76C1229D3E1800649F0A /* AddressWebVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressWebVController.swift; sourceTree = "<group>"; };
 		D4DD19F72255218E006FAF33 /* SettingVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVController.swift; sourceTree = "<group>"; };
 		D4EB8A79226998A2006E8DC5 /* btn_pic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_pic@3x.png"; sourceTree = "<group>"; };
 		D4EB8A7A226998A2006E8DC5 /* image_loading_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_loading_2.png; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 		D4001D12221C1D9800080EB2 /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				D4DC76C0229D3DF100649F0A /* address */,
 				D4C4340D225621390042AD1F /* login */,
 				D4001D26221C26B400080EB2 /* main */,
 				D4001D27221C26C100080EB2 /* other */,
@@ -540,6 +543,14 @@
 				D4C4340E2256214B0042AD1F /* LoginVController.swift */,
 			);
 			path = login;
+			sourceTree = "<group>";
+		};
+		D4DC76C0229D3DF100649F0A /* address */ = {
+			isa = PBXGroup;
+			children = (
+				D4DC76C1229D3E1800649F0A /* AddressWebVController.swift */,
+			);
+			path = address;
 			sourceTree = "<group>";
 		};
 		D4DD19F622552167006FAF33 /* setting */ = {
@@ -798,6 +809,7 @@
 				D4C4340A22561D7B0042AD1F /* UIViewHelper.swift in Sources */,
 				D4C4340122561CBE0042AD1F /* ResResult.swift in Sources */,
 				D405FC50225DA7CE00FBCB58 /* SideMenuVController.swift in Sources */,
+				D4DC76C2229D3E1800649F0A /* AddressWebVController.swift in Sources */,
 				D4001D29221C26ED00080EB2 /* OtherWebVController.swift in Sources */,
 				D405FC4B225DA59900FBCB58 /* ResUser.swift in Sources */,
 				D4001D15221C1DF300080EB2 /* WDefine.swift in Sources */,

@@ -363,7 +363,7 @@ extension OtherWebVController: WKScriptMessageHandler {
             }
         }
         else if message.name == "showLoading" {
-            if let body = message.body as? String, body == "open" {
+            if let body = message.body as? String, body == "true" {
                 imageLoadingPopup.show()
             }
             else {

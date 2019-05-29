@@ -1,37 +1,34 @@
 //
-//  MainVController.swift
-//  WebEwelfare
+//  AddressWebVController.swift
+//  eWelfare
 //
-//  Created by 김동석 on 19/02/2019.
+//  Created by 김동석 on 28/05/2019.
 //  Copyright © 2019 nam yeon hun. All rights reserved.
 //
 
 import UIKit
 import WebKit
-import SideMenu
 
-class MainVController: BaseVController {
-
-    @IBOutlet weak var ivTitle: UIImageView!
-    @IBOutlet weak var lbTitleText: UILabel!
+class AddressWebVController: BaseVController {
+    
     @IBOutlet weak var containerView: UIView!
-    
-    @IBOutlet weak var vLeftButtons: UIView!
-    @IBOutlet weak var rightButtons: UIView!
-    
-    private var presenter: MainPresenter!
+    @IBOutlet weak var lbTitle: UILabel!
     
     private var wkWebView: WKWebView!
     private var newWkWebView: WKWebView?
     
-    private let imageLoadingPopup = ImageLoadingPopup().create()
+    var shopUrl: String!
+    var titleText: String?
     
     var tid: String?
     
+    var addressListener: ((String?, String?, String?) -> Void)?
+    private var zoneCode: String?
+    private var address: String?
+    private var addressMore: String?
+    
     override func loadView() {
         super.loadView()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(loadHome), name: Notification.Name("loadHome"), object: nil)
         
         wkWebView = WKWebView(frame: containerView.frame, configuration: getWebViewConfiguration())
         wkWebView.uiDelegate = self
@@ -50,56 +47,24 @@ class MainVController: BaseVController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // fcm
-        FcmHelper.instance.fcmTopic()
-        
         initView()
         
-        presenter = MainPresenter(view: self, model: MainModel())
+        loadUrl(urlPath: shopUrl)
+    }
+    
+    @IBAction func onClickBack(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
     
     private func initView() {
-        // Enable gestures. The left and/or right menus must be set up above for these to work.
-        // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
-        SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.view)
-        
-        SideMenuManager.default.menuFadeStatusBar = false
-        SideMenuManager.default.menuWidth = UIScreen.main.bounds.width * 0.8
-    }
-    
-    @IBAction func onActionBack(_ sender: Any) {
-        if wkWebView.canGoBack {
-            wkWebView.goBack()
-        }
-    }
-    
-    @IBAction func onActionHome(_ sender: Any) {
-        presenter.loadHome()
-    }
-    
-    @IBAction func onActionMenu(_ sender: Any) {
-        presenter.loadSetting()
-    }
-    
-    @IBAction func onActionSearch(_ sender: Any) {
-        presenter.loadSearch()
-    }
-    
-    @objc func loadHome(noti: NSNotification) {
-        presenter.loadHome()
+        lbTitle.text = titleText
     }
     
     private func getWebViewConfiguration() -> WKWebViewConfiguration {
         let config = WKWebViewConfiguration()
-        let contentController = WKUserContentController()
         
-        contentController.add(self, name:"sendLoginAction")
-        contentController.add(self, name:"aspGet")
-        contentController.add(self, name:"aspPost")
-        contentController.add(self, name:"checkMainPage")
-        contentController.add(self, name:"showLoading")
-        contentController.add(self, name:"tokenError")
-        contentController.add(self, name:"openSearchAddress")
+        let contentController = WKUserContentController()
+        contentController.add(self, name:"setAddress")
         config.userContentController = contentController
         
         let preferences = WKPreferences()
@@ -120,13 +85,14 @@ class MainVController: BaseVController {
         request.addValue(AppManager.instance.bundleIdentifier!, forHTTPHeaderField: "package")
         request.addValue(AppManager.instance.appVersion!, forHTTPHeaderField: "version")
         if let token = AccountManager.instance.token {
-            request.addValue(token, forHTTPHeaderField: "token-ewelfare")
+            request.addValue(token, forHTTPHeaderField: "token-edanbi")
         }
         
-//        var cookies = HTTPCookie.requestHeaderFields(with: HTTPCookieStorage.shared.cookies(for: request.url!)!)
-//        if let value = cookies["Cookie"] {
-//            request.addValue(value, forHTTPHeaderField: "Cookie")
-//        }
+        // 이거 풀면 메인 페이지에서 오류가 발생함.. (쿠키 필요 시 주의해서 사용하자)
+        //        var cookies = HTTPCookie.requestHeaderFields(with: HTTPCookieStorage.shared.cookies(for: request.url!)!)
+        //        if let value = cookies["Cookie"] {
+        //            request.addValue(value, forHTTPHeaderField: "Cookie")
+        //        }
         
         wkWebView.load(request)
     }
@@ -144,61 +110,29 @@ class MainVController: BaseVController {
         return dict
     }
     
-    private func makePostData(text: String?) -> String {
-        var postData = ""
-        
-        if let jsonDic = convertToDictionary(text: text) {
-            for data in jsonDic {
-                if postData.count > 0 {
-                    postData += "&"
-                }
-                
-                if let value = data.value as? String {
-                    postData += String(format: "%@=%@", data.key, value)
-                }
-                else if let value = data.value as? Int {
-                    postData += String(format: "%@=%d", data.key, value)
-                }
-            }
+    private func setAddress(messageBody: String?) {
+        guard let body = messageBody else {
+            return
         }
         
-        return postData
+        let parsedData = parseStringComponents(body)
+        zoneCode = parsedData["arg1"]!
+        address = parsedData["arg2"]!
+        addressMore = parsedData["arg3"]!
+        
+        if let listener = addressListener {
+            listener(zoneCode, address, addressMore)
+        }
+        dismiss(animated: true, completion: nil)
     }
     
-    private func convertToDictionary(text: String?) -> [String: AnyObject]? {
-        if text == nil {
-            return nil
-        }
-        
-        if let data = text!.data(using: .utf8) {
-            do {
-                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject]
-            } catch {
-                // Handle Error
-            }
-        }
-        return nil
-    }
-    
-    // 다음 지도 호출
-    func openSearchAddress() {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "addressWeb") as! AddressWebVController
-        vc.shopUrl = WDefine.DAUM_ADDRESS_HOST
-        vc.titleText = "주소검색"
-        vc.addressListener = { zoneCode, address, addressMore in
-            let cmd = String(format: "settingAddress('%@','%@')", zoneCode ?? "", address ?? "")
-            self.wkWebView.evaluateJavaScript(cmd, completionHandler: nil)
-        }
-        present(vc, animated: true)
-    }
-
 }
 
 
-extension MainVController: WKUIDelegate {
+extension AddressWebVController: WKUIDelegate {
     
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
-        let alertController = UIAlertController(title: "e복지", message: message, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "e단비", message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in
             completionHandler()
         }))
@@ -207,7 +141,7 @@ extension MainVController: WKUIDelegate {
     }
     
     func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
-        let alertController = UIAlertController(title: "e복지", message: message, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "e단비", message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in
             completionHandler(true)
         }))
@@ -219,7 +153,7 @@ extension MainVController: WKUIDelegate {
     }
     
     func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
-        let alertController = UIAlertController(title: "e복지", message: prompt, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "e단비", message: prompt, preferredStyle: .alert)
         alertController.addTextField { (textField) in
             textField.text = defaultText
         }
@@ -240,11 +174,9 @@ extension MainVController: WKUIDelegate {
 }
 
 
-extension MainVController: WKNavigationDelegate {
+extension AddressWebVController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        print("Main - createWebViewWith")
-        
         newWkWebView = WKWebView(frame: webView.frame, configuration: configuration)
         newWkWebView!.scrollView.bounces = self.wkWebView.scrollView.bounces
         newWkWebView!.uiDelegate = self.wkWebView.uiDelegate
@@ -254,7 +186,6 @@ extension MainVController: WKNavigationDelegate {
     }
     
     func webViewDidClose(_ webView: WKWebView) {
-        print("Main - webViewDidClose")
         if webView == newWkWebView! {
             newWkWebView!.removeFromSuperview()
             newWkWebView = nil
@@ -270,7 +201,7 @@ extension MainVController: WKNavigationDelegate {
         HTTPCookieStorage.shared.cookieAcceptPolicy = .always
         
         if let urlStr = navigationAction.request.url?.absoluteString {
-            print("Main 요청된 URL ==> \(urlStr)")
+            print("Other 요청된 URL ==> \(urlStr)")
         }
         
         // iOS10 신한, 삼성, NH 등 앱카드 관련 ///////////////////
@@ -331,13 +262,13 @@ extension MainVController: WKNavigationDelegate {
             }
             else if urlStr.range(of: "itunes.apple.com") != nil || urlStr.range(of: "phobos.apple.com") != nil {
                 if self.openUrl(urlStr) {
-                    decisionHandler(.cancel)
+                    decisionHandler(WKNavigationActionPolicy.cancel)
                     return
                 }
             }
             else if !urlStr.hasPrefix("http://") && !urlStr.hasPrefix("https://") && !urlStr.hasPrefix("about:") {
                 if self.openUrl(urlStr) {
-                    decisionHandler(.cancel)
+                    decisionHandler(WKNavigationActionPolicy.cancel)
                     return
                 }
             }
@@ -349,77 +280,20 @@ extension MainVController: WKNavigationDelegate {
 }
 
 
-extension MainVController: WKScriptMessageHandler {
+extension AddressWebVController: WKScriptMessageHandler {
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        print("[[ JavaScript ]] name : \(message.name), body : \(message.body)")
+        print("[[ MW - JavaScript ]] name : \(message.name), body : \(message.body)")
         
-        if message.name == "sendLoginAction" {
-            AccountManager.instance.token = message.body as? String
-            AppManager.instance.requestFcmToken()
-        }
-        else if message.name == "aspGet" {
-            if let body = message.body as? String {
-                let params = parseStringComponents(body)
-                if let title = params["title"] {
-                    if let range = body.range(of: "&url=") {
-                        let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
-                        vc.shopUrl = body.substring(with: range.upperBound..<body.endIndex)
-                        vc.titleText = title
-                        self.navigationController?.pushViewController(vc, animated: true)
-                    }
-                }
-            }
-        }
-        else if message.name == "aspPost" {
-            if let body = message.body as? String {
-                let params = parseStringComponents(body)
-                if let title = params["title"], let url = params["url"], let json = params["data"] {
-                    let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
-                    vc.shopUrl = url
-                    vc.titleText = title
-                    vc.postParams = makePostData(text: json)
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-            }
-        }
-        else if message.name == "checkMainPage" {
-            if let body = message.body as? String, !body.isEmpty {
-                vLeftButtons.isHidden = true
-                lbTitleText.text = nil
-                ivTitle.isHidden = false
-                ivTitle.sd_setImage(with: URL(string: body)) { image, error, cacheType, imageURL in
-                }
-            }
-            else {
-                vLeftButtons.isHidden = false
-                lbTitleText.text = wkWebView.title
-                ivTitle.isHidden = true
-            }
-            // print("wkWebView.title : \(wkWebView.title)")
-        }
-        else if message.name == "showLoading" {
-            if let body = message.body as? String, body == "true" {
-                imageLoadingPopup.show()
-            }
-            else {
-                imageLoadingPopup.hide()
-            }
-        }
-        else if message.name == "tokenError" {
-            self.alertPopup(message: "로그인 세션이 종료되어 로그인 화면으로 이동됩니다.") {
-                self.goLogin()
-            }
-        }
-        else if message.name == "openSearchAddress" {
-            openSearchAddress()
+        if message.name == "setAddress" {
+            self.setAddress(messageBody: message.body as? String)
         }
     }
     
 }
 
 
-extension MainVController: UIScrollViewDelegate {
+extension AddressWebVController: UIScrollViewDelegate {
     
     // disable zooming in webview
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {

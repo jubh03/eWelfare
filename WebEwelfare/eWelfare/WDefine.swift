@@ -25,4 +25,11 @@ class WDefine {
         }
     }
     
+    static var DAUM_ADDRESS_HOST: String {
+        get {
+            // return "https://hairfitapp.firebaseapp.com/daum_address_ios"
+            return WDefine.URL + "postsearch/ios"
+        }
+    }
+    
 }
