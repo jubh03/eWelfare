@@ -75,18 +75,18 @@ class AppManager {
         }
     }
     
-    func requestFcmToken() {
+    func requestFcmToken(isOn: Bool) {
         if fcmToken == nil {
             return
         }
         
         // url
-        let url: String = WDefine.API + "token"
+        let url: String = WDefine.API + "token/device/update"
         
         // parameter
         var parameters: Parameters = Parameters()
         parameters["token"] = fcmToken
-        parameters["platform"] = "ios"
+        parameters["status"] = isOn ? "Y" : "N"
         
         Alamofire.request(url,
                           method: .post,

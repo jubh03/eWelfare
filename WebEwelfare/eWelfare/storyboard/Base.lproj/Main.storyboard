@@ -1055,7 +1055,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v60-jP-9cw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-674" y="2226"/>
+            <point key="canvasLocation" x="780" y="1621"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SpU-R4-TvT">
@@ -1277,27 +1277,14 @@
                                             <action selector="onClickBack:" destination="RGj-q8-FWb" eventType="touchUpInside" id="0hL-Bv-0Q7"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y2c-ME-NkN">
-                                        <rect key="frame" x="45" y="11.5" width="33" height="33"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="33" id="9qz-b6-pQC"/>
-                                            <constraint firstAttribute="height" constant="33" id="dRf-0k-h7W"/>
-                                        </constraints>
-                                        <state key="normal" image="btn_titlebar_home.png"/>
-                                        <connections>
-                                            <action selector="onClickClose:" destination="RGj-q8-FWb" eventType="touchUpInside" id="7C8-1h-6Vd"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="y2c-ME-NkN" firstAttribute="leading" secondItem="3uQ-h6-TIe" secondAttribute="trailing" constant="4" id="JQm-Dv-gJ1"/>
                                     <constraint firstItem="3uQ-h6-TIe" firstAttribute="leading" secondItem="HWz-sG-2Fo" secondAttribute="leading" constant="8" id="PsX-RU-cf4"/>
                                     <constraint firstItem="Gxb-VE-div" firstAttribute="centerY" secondItem="HWz-sG-2Fo" secondAttribute="centerY" id="TuD-kr-fTh"/>
                                     <constraint firstAttribute="height" constant="56" id="omC-hJ-aPp"/>
                                     <constraint firstItem="3uQ-h6-TIe" firstAttribute="centerY" secondItem="HWz-sG-2Fo" secondAttribute="centerY" id="rvM-gl-Nbj"/>
                                     <constraint firstItem="Gxb-VE-div" firstAttribute="centerX" secondItem="HWz-sG-2Fo" secondAttribute="centerX" id="y1E-tm-clW"/>
-                                    <constraint firstItem="y2c-ME-NkN" firstAttribute="centerY" secondItem="HWz-sG-2Fo" secondAttribute="centerY" id="ydA-1g-MvG"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1314,7 +1301,6 @@
                         <viewLayoutGuide key="safeArea" id="k26-Nr-Mlu"/>
                     </view>
                     <connections>
-                        <outlet property="btnHome" destination="y2c-ME-NkN" id="1NY-RZ-buZ"/>
                         <outlet property="containerView" destination="g8B-4x-M7q" id="IRI-nj-mhw"/>
                         <outlet property="lbTitle" destination="Gxb-VE-div" id="vXe-hf-4T3"/>
                     </connections>

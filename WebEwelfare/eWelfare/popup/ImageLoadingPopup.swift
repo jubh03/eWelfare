@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftGifOrigin
 
 class ImageLoadingPopup: UIView {
 
@@ -29,7 +30,8 @@ class ImageLoadingPopup: UIView {
             ImageLoadingPopup.id = 1
         }
 
-        ivImage.image = UIImage(named: "image_loading_\(ImageLoadingPopup.id).png")
+//        ivImage.image = UIImage(named: "image_loading_\(ImageLoadingPopup.id).png")
+        ivImage.image = UIImage.gif(name: "image_loading")
         
         let uiView: UIView = UIApplication.shared.keyWindow!
         uiView.addSubview(self)

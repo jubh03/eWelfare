@@ -18,6 +18,7 @@ class BaseVController: UIViewController {
     
     // change scene
     func goLogin() {
+        AppManager.instance.requestFcmToken(isOn: false)
         AccountManager.instance.id = 0
         AccountManager.instance.token = nil
 
@@ -26,13 +27,15 @@ class BaseVController: UIViewController {
     }
     
     func goMain() {
+        AppManager.instance.requestFcmToken(isOn: true)
+
         let vc = storyboard?.instantiateViewController(withIdentifier: "mainWeb") as! MainVController
         self.navigationController?.pushViewController(vc, animated: false)
     }
     
     func goSetting() {
         let vc = storyboard?.instantiateViewController(withIdentifier: "setting") as! SettingVController
-        present(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func goMarket(appId: String) {

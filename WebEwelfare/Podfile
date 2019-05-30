@@ -15,5 +15,7 @@ target 'eWelfare' do
   pod 'SideMenu'
   
   pod 'SDWebImage'
+  
+  pod 'SwiftGifOrigin', '~> 1.7.0'
 
 end

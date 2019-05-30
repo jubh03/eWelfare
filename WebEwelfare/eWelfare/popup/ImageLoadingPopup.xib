@@ -12,13 +12,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ImageLoadingPopup" customModule="WebEwelfare" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ImageLoadingPopup" customModule="eWelfare" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view alpha="0.59999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6pn-At-WwE">
-                    <rect key="frame" x="87" y="384" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6pn-At-WwE">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SeF-YE-K6x">
@@ -37,9 +36,13 @@
                 </view>
             </subviews>
             <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="6pn-At-WwE" secondAttribute="bottom" id="3lM-9O-hSu"/>
                 <constraint firstItem="SeF-YE-K6x" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="E47-xD-op4"/>
+                <constraint firstItem="6pn-At-WwE" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="LsO-VZ-EgS"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="SeF-YE-K6x" secondAttribute="bottom" id="aif-jA-dHm"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6pn-At-WwE" secondAttribute="trailing" id="eqW-zw-LgT"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SeF-YE-K6x" secondAttribute="trailing" id="jUT-NO-XW1"/>
+                <constraint firstItem="6pn-At-WwE" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="kVN-34-lY0"/>
                 <constraint firstItem="SeF-YE-K6x" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="lYC-Pl-Cvn"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

@@ -354,11 +354,7 @@ extension MainVController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         print("[[ JavaScript ]] name : \(message.name), body : \(message.body)")
         
-        if message.name == "sendLoginAction" {
-            AccountManager.instance.token = message.body as? String
-            AppManager.instance.requestFcmToken()
-        }
-        else if message.name == "aspGet" {
+        if message.name == "aspGet" {
             if let body = message.body as? String {
                 let params = parseStringComponents(body)
                 if let title = params["title"] {
@@ -399,7 +395,7 @@ extension MainVController: WKScriptMessageHandler {
             // print("wkWebView.title : \(wkWebView.title)")
         }
         else if message.name == "showLoading" {
-            if let body = message.body as? String, body == "true" {
+            if let body = message.body as? String, body == "open" {
                 imageLoadingPopup.show()
             }
             else {
