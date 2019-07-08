@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>273107999966-uq3t4269hsbsd52isum6q0jc6hif3r4g.apps.googleusercontent.com</string>
+	<string>273107999966-a0dmetf4s2llsot1qt9hb9resq7ab1n2.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.273107999966-uq3t4269hsbsd52isum6q0jc6hif3r4g</string>
+	<string>com.googleusercontent.apps.273107999966-a0dmetf4s2llsot1qt9hb9resq7ab1n2</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>273107999966-4uf8t6ncskvd1nd632tlr78n8rbuju73.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>byfi.com.ewelfare</string>
+	<string>com.ewelfare.ebokji</string>
 	<key>PROJECT_ID</key>
 	<string>ebokji5-0</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:273107999966:ios:05dc6dc9f713e249</string>
+	<string>1:273107999966:ios:ce13ded3dbb72607</string>
 	<key>DATABASE_URL</key>
 	<string>https://ebokji5-0.firebaseio.com</string>
 </dict>

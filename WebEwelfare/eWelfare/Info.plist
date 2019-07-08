@@ -24,7 +24,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>byfi.com.eWelfare</string>
+			<string>com.ewelfare.ebokji</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>eWelfare</string>
@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>eDanbi</string>
