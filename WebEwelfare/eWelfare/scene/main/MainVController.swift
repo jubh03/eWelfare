@@ -93,13 +93,14 @@ class MainVController: BaseVController {
         let config = WKWebViewConfiguration()
         let contentController = WKUserContentController()
         
-        contentController.add(self, name:"sendLoginAction")
+        contentController.add(self, name:"goAppPage")
         contentController.add(self, name:"aspGet")
         contentController.add(self, name:"aspPost")
         contentController.add(self, name:"checkMainPage")
         contentController.add(self, name:"showLoading")
         contentController.add(self, name:"tokenError")
         contentController.add(self, name:"openSearchAddress")
+        contentController.add(self, name:"outWeb")
         config.userContentController = contentController
         
         let preferences = WKPreferences()
@@ -192,6 +193,79 @@ class MainVController: BaseVController {
         present(vc, animated: true)
     }
 
+    func goAppPage(_ body: String?) {
+        if body == nil {
+            return
+        }
+        
+        if let page = parseStringComponents(body!)["page"] {
+            if page == "login" {
+                goLogin()
+            }
+            else if page == "setting" {
+                goSetting()
+            }
+            else if page == "store" {
+                goMarket(appId: WDefine.eBokjiAppId)
+            }
+        }
+    }
+    
+    func aspGet(_ body: String?) {
+        if body == nil {
+            return
+        }
+
+        let params = parseStringComponents(body!)
+        if let title = params["title"] {
+            if let range = body!.range(of: "&url=") {
+                let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
+                vc.shopUrl = body!.substring(with: range.upperBound..<body!.endIndex)
+                vc.titleText = title
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+
+    func aspPost(_ body: String?) {
+        if body == nil {
+            return
+        }
+        
+        let params = parseStringComponents(body!)
+        if let title = params["title"], let url = params["url"], let json = params["data"] {
+            let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
+            vc.shopUrl = url
+            vc.titleText = title
+            vc.postParams = makePostData(text: json)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func checkMainPage(_ body: String?) {
+        if let body = body as? String, !body.isEmpty {
+            vLeftButtons.isHidden = true
+            lbTitleText.text = nil
+            ivTitle.isHidden = false
+            ivTitle.sd_setImage(with: URL(string: body)) { image, error, cacheType, imageURL in
+            }
+        }
+        else {
+            vLeftButtons.isHidden = false
+            lbTitleText.text = wkWebView.title
+            ivTitle.isHidden = true
+        }
+        // print("wkWebView.title : \(wkWebView.title)")
+    }
+    
+    func outWeb(_ body: String?) {
+        if let body = body as? String {
+            if body.hasPrefix("http://") || body.hasPrefix("https://") {
+                self.openUrl(body)
+            }
+        }
+    }
+    
 }
 
 
@@ -354,45 +428,17 @@ extension MainVController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         print("[[ JavaScript ]] name : \(message.name), body : \(message.body)")
         
-        if message.name == "aspGet" {
-            if let body = message.body as? String {
-                let params = parseStringComponents(body)
-                if let title = params["title"] {
-                    if let range = body.range(of: "&url=") {
-                        let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
-                        vc.shopUrl = body.substring(with: range.upperBound..<body.endIndex)
-                        vc.titleText = title
-                        self.navigationController?.pushViewController(vc, animated: true)
-                    }
-                }
-            }
+        if message.name == "goAppPage" {
+            goAppPage(message.body as? String)
+        }
+        else if message.name == "aspGet" {
+            aspGet(message.body as? String)
         }
         else if message.name == "aspPost" {
-            if let body = message.body as? String {
-                let params = parseStringComponents(body)
-                if let title = params["title"], let url = params["url"], let json = params["data"] {
-                    let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
-                    vc.shopUrl = url
-                    vc.titleText = title
-                    vc.postParams = makePostData(text: json)
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-            }
+            aspPost(message.body as? String)
         }
         else if message.name == "checkMainPage" {
-            if let body = message.body as? String, !body.isEmpty {
-                vLeftButtons.isHidden = true
-                lbTitleText.text = nil
-                ivTitle.isHidden = false
-                ivTitle.sd_setImage(with: URL(string: body)) { image, error, cacheType, imageURL in
-                }
-            }
-            else {
-                vLeftButtons.isHidden = false
-                lbTitleText.text = wkWebView.title
-                ivTitle.isHidden = true
-            }
-            // print("wkWebView.title : \(wkWebView.title)")
+            checkMainPage(message.body as? String)
         }
         else if message.name == "showLoading" {
             if let body = message.body as? String, body == "open" {
@@ -409,6 +455,9 @@ extension MainVController: WKScriptMessageHandler {
         }
         else if message.name == "openSearchAddress" {
             openSearchAddress()
+        }
+        else if message.name == "outWeb" {
+            outWeb(message.body as? String)
         }
     }
     

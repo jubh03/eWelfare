@@ -88,12 +88,6 @@ class AddressWebVController: BaseVController {
             request.addValue(token, forHTTPHeaderField: "token-edanbi")
         }
         
-        // 이거 풀면 메인 페이지에서 오류가 발생함.. (쿠키 필요 시 주의해서 사용하자)
-        //        var cookies = HTTPCookie.requestHeaderFields(with: HTTPCookieStorage.shared.cookies(for: request.url!)!)
-        //        if let value = cookies["Cookie"] {
-        //            request.addValue(value, forHTTPHeaderField: "Cookie")
-        //        }
-        
         wkWebView.load(request)
     }
     

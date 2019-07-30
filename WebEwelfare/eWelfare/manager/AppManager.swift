@@ -110,5 +110,16 @@ class AppManager {
             UserDefaults.standard.synchronize()
         }
     }
-    
+
+    private let SAVED_EMAIL = "SAVED_EMAIL"
+    var savedEmail: String? {
+        get {
+            return UserDefaults.standard.string(forKey: SAVED_EMAIL)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: SAVED_EMAIL)
+            UserDefaults.standard.synchronize()
+        }
+    }
+
 }

@@ -485,13 +485,19 @@
                                 <rect key="frame" x="0.0" y="587" width="355" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고객센터" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mIo-mK-70u">
-                                        <rect key="frame" x="20" y="20" width="49" height="17"/>
+                                        <rect key="frame" x="20" y="16" width="49" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="02-562-7747(평일 09-18시)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jUK-nP-5IA">
-                                        <rect key="frame" x="20" y="45" width="131" height="12"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="02-562-7747" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jUK-nP-5IA">
+                                        <rect key="frame" x="20" y="38" width="65" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(평일 09:00-17:30 / 점심시간 11:30-13:00)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4a-3q-SNB">
+                                        <rect key="frame" x="20" y="51" width="192.5" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -512,11 +518,13 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Fcj-sF-E9M" secondAttribute="trailing" constant="20" id="1LQ-vv-Y50"/>
                                     <constraint firstItem="mIo-mK-70u" firstAttribute="leading" secondItem="Obn-3p-pfG" secondAttribute="leading" constant="20" id="8FR-7U-EJ6"/>
-                                    <constraint firstItem="jUK-nP-5IA" firstAttribute="top" secondItem="mIo-mK-70u" secondAttribute="bottom" constant="8" id="LR5-jG-UvT"/>
+                                    <constraint firstItem="jUK-nP-5IA" firstAttribute="top" secondItem="mIo-mK-70u" secondAttribute="bottom" constant="5" id="LR5-jG-UvT"/>
                                     <constraint firstAttribute="height" constant="80" id="M3c-Z2-kHN"/>
                                     <constraint firstItem="Fcj-sF-E9M" firstAttribute="centerY" secondItem="Obn-3p-pfG" secondAttribute="centerY" id="P3B-z4-2S0"/>
-                                    <constraint firstItem="mIo-mK-70u" firstAttribute="top" secondItem="Obn-3p-pfG" secondAttribute="top" constant="20" id="mhr-vk-V4U"/>
+                                    <constraint firstItem="Q4a-3q-SNB" firstAttribute="leading" secondItem="Obn-3p-pfG" secondAttribute="leading" constant="20" id="awK-7m-goL"/>
+                                    <constraint firstItem="mIo-mK-70u" firstAttribute="top" secondItem="Obn-3p-pfG" secondAttribute="top" constant="16" id="mhr-vk-V4U"/>
                                     <constraint firstItem="jUK-nP-5IA" firstAttribute="leading" secondItem="Obn-3p-pfG" secondAttribute="leading" constant="20" id="v4e-wN-Klp"/>
+                                    <constraint firstItem="Q4a-3q-SNB" firstAttribute="top" secondItem="jUK-nP-5IA" secondAttribute="bottom" constant="1" id="zIJ-d3-4Jm"/>
                                 </constraints>
                             </view>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OJc-wx-gxA">
@@ -1089,13 +1097,22 @@
                                     <constraint firstAttribute="width" secondItem="XWX-fs-REe" secondAttribute="height" multiplier="1:1" id="tNQ-uE-X92"/>
                                 </constraints>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash.png" translatesAutoresizingMaskIntoConstraints="NO" id="kgA-cQ-Yax">
+                                <rect key="frame" x="137.5" y="383.5" width="100" height="58"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Fca-Q2-iid"/>
+                                    <constraint firstAttribute="height" constant="58" id="KDM-pX-kc6"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="kgA-cQ-Yax" firstAttribute="top" secondItem="XWX-fs-REe" secondAttribute="bottom" constant="20" id="70R-Bb-0gR"/>
                             <constraint firstItem="XWX-fs-REe" firstAttribute="centerX" secondItem="k61-tb-Ghl" secondAttribute="centerX" id="EAO-6I-Agr"/>
                             <constraint firstItem="2So-pU-FZP" firstAttribute="trailing" secondItem="5On-c6-8rZ" secondAttribute="trailing" id="JcT-v5-Efl"/>
                             <constraint firstItem="5On-c6-8rZ" firstAttribute="top" secondItem="k61-tb-Ghl" secondAttribute="top" id="Nn2-Yb-gEq"/>
                             <constraint firstItem="5On-c6-8rZ" firstAttribute="leading" secondItem="2So-pU-FZP" secondAttribute="leading" id="jXm-Xr-3hn"/>
+                            <constraint firstItem="kgA-cQ-Yax" firstAttribute="centerX" secondItem="k61-tb-Ghl" secondAttribute="centerX" id="qo2-4r-SXW"/>
                             <constraint firstItem="XWX-fs-REe" firstAttribute="centerY" secondItem="k61-tb-Ghl" secondAttribute="centerY" constant="-40" id="rAN-0d-7Zi"/>
                             <constraint firstAttribute="bottom" secondItem="5On-c6-8rZ" secondAttribute="bottom" id="uzo-FY-eo4"/>
                         </constraints>
@@ -1161,11 +1178,30 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JmB-iY-gUC">
-                                <rect key="frame" x="60" y="300" width="255" height="24"/>
+                                <rect key="frame" x="30" y="283" width="315" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2RT-2i-FGv">
+                                        <rect key="frame" x="5" y="9" width="17" height="22"/>
+                                        <state key="normal" image="check_off.png"/>
+                                        <state key="selected" image="check_on.png"/>
+                                        <connections>
+                                            <action selector="onActionSaveEmail:" destination="Ell-tH-Ul8" eventType="touchUpInside" id="Yg3-X2-g2O"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이메일 저장" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vF2-TJ-tgh">
+                                        <rect key="frame" x="32" y="11" width="69" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="255" id="FN1-w4-a15"/>
-                                    <constraint firstAttribute="height" constant="24" id="z0t-Zo-gaD"/>
+                                    <constraint firstItem="2RT-2i-FGv" firstAttribute="leading" secondItem="JmB-iY-gUC" secondAttribute="leading" constant="5" id="0hT-ha-sgZ"/>
+                                    <constraint firstItem="vF2-TJ-tgh" firstAttribute="leading" secondItem="2RT-2i-FGv" secondAttribute="trailing" constant="10" id="GcF-3L-qqb"/>
+                                    <constraint firstItem="vF2-TJ-tgh" firstAttribute="centerY" secondItem="JmB-iY-gUC" secondAttribute="centerY" id="cH7-46-qTk"/>
+                                    <constraint firstItem="2RT-2i-FGv" firstAttribute="centerY" secondItem="JmB-iY-gUC" secondAttribute="centerY" id="sqE-XY-Fdx"/>
+                                    <constraint firstAttribute="height" constant="40" id="z0t-Zo-gaD"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQK-z9-m5P">
@@ -1209,17 +1245,19 @@
                             <constraint firstItem="and-Bk-uOl" firstAttribute="centerX" secondItem="8LQ-Z7-EYf" secondAttribute="centerX" id="MnZ-mx-K9I"/>
                             <constraint firstItem="iEC-N4-diJ" firstAttribute="trailing" secondItem="B11-Wc-HMG" secondAttribute="trailing" id="SnG-2L-oba"/>
                             <constraint firstItem="8C2-vD-hT2" firstAttribute="centerX" secondItem="7PC-wT-7lq" secondAttribute="centerX" id="Xrt-cc-Mo1"/>
-                            <constraint firstItem="JmB-iY-gUC" firstAttribute="top" secondItem="and-Bk-uOl" secondAttribute="bottom" constant="25" id="e34-UP-RYW"/>
+                            <constraint firstItem="JmB-iY-gUC" firstAttribute="top" secondItem="and-Bk-uOl" secondAttribute="bottom" constant="8" id="e34-UP-RYW"/>
                             <constraint firstItem="8C2-vD-hT2" firstAttribute="top" secondItem="ZQK-z9-m5P" secondAttribute="bottom" constant="50" id="fUN-A3-ysp"/>
                             <constraint firstItem="8LQ-Z7-EYf" firstAttribute="leading" secondItem="iEC-N4-diJ" secondAttribute="leading" constant="30" id="kAq-jI-lJ0"/>
                             <constraint firstItem="JmB-iY-gUC" firstAttribute="centerX" secondItem="7PC-wT-7lq" secondAttribute="centerX" id="r5w-q7-dbk"/>
                             <constraint firstItem="B11-Wc-HMG" firstAttribute="leading" secondItem="iEC-N4-diJ" secondAttribute="leading" id="sNO-Q6-IL7"/>
                             <constraint firstItem="8LQ-Z7-EYf" firstAttribute="top" secondItem="B11-Wc-HMG" secondAttribute="bottom" constant="85" id="u7h-cs-LGH"/>
                             <constraint firstItem="ZQK-z9-m5P" firstAttribute="centerX" secondItem="7PC-wT-7lq" secondAttribute="centerX" id="xQJ-5M-idm"/>
+                            <constraint firstItem="JmB-iY-gUC" firstAttribute="width" secondItem="8LQ-Z7-EYf" secondAttribute="width" id="zjU-jI-Bwg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iEC-N4-diJ"/>
                     </view>
                     <connections>
+                        <outlet property="btnSavedEmail" destination="2RT-2i-FGv" id="zkf-OJ-qZM"/>
                         <outlet property="tfEmail" destination="8LQ-Z7-EYf" id="cju-8z-blM"/>
                         <outlet property="tfPassword" destination="and-Bk-uOl" id="IzP-yn-hso"/>
                     </connections>
@@ -1323,6 +1361,8 @@
         <image name="btn_titlebar_search.png" width="33" height="33"/>
         <image name="btn_titlebar_sidemenu.png" width="33" height="33"/>
         <image name="btn_update.png" width="72" height="30"/>
+        <image name="check_off.png" width="17" height="17"/>
+        <image name="check_on.png" width="17" height="17"/>
         <image name="icon_cart.png" width="40" height="40"/>
         <image name="icon_coupon.png" width="40" height="40"/>
         <image name="icon_lock.png" width="11" height="14.5"/>
@@ -1332,5 +1372,6 @@
         <image name="landing.png" width="375" height="812"/>
         <image name="logo.png" width="140" height="140"/>
         <image name="my_pic.png" width="60" height="60"/>
+        <image name="splash.png" width="100" height="30"/>
     </resources>
 </document>

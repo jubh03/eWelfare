@@ -10,8 +10,8 @@ import Foundation
 
 class WDefine {
     
-    static let eDanbiAppId = "1447448667"
-    static let eBokjiAppId = "1448654587"
+    static let eDanbiAppId = "1472064201"
+    static let eBokjiAppId = "1472065264"
     
     static var URL: String {
         get {

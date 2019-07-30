@@ -27,11 +27,20 @@
                                     <constraint firstAttribute="width" secondItem="wWj-PH-Qz4" secondAttribute="height" multiplier="1:1" id="Nac-ev-HAZ"/>
                                 </constraints>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash.png" translatesAutoresizingMaskIntoConstraints="NO" id="loz-Cf-XyL">
+                                <rect key="frame" x="157" y="418" width="100" height="58"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="MVg-tC-hHg"/>
+                                    <constraint firstAttribute="height" constant="58" id="Txe-fn-SRa"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="O5P-Lv-Q8C" secondAttribute="trailing" id="2S2-wn-HsD"/>
+                            <constraint firstItem="loz-Cf-XyL" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="6uS-78-8hx"/>
                             <constraint firstItem="wWj-PH-Qz4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="EhC-b5-9tv"/>
+                            <constraint firstItem="loz-Cf-XyL" firstAttribute="top" secondItem="wWj-PH-Qz4" secondAttribute="bottom" constant="20" id="HS6-G8-GGM"/>
                             <constraint firstItem="O5P-Lv-Q8C" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="I74-xf-QKw"/>
                             <constraint firstAttribute="bottom" secondItem="O5P-Lv-Q8C" secondAttribute="bottom" id="NCr-W6-JUf"/>
                             <constraint firstItem="wWj-PH-Qz4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-40" id="ZvH-ye-5ae"/>
@@ -48,5 +57,6 @@
     <resources>
         <image name="landing.png" width="375" height="812"/>
         <image name="logo.png" width="140" height="140"/>
+        <image name="splash.png" width="100" height="30"/>
     </resources>
 </document>

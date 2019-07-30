@@ -23,9 +23,9 @@ class SideMenuCollectionVCell: UICollectionViewCell {
     }
 
     @IBAction func onActionMenu(_ sender: UIButton) {
-        if let asp = self.data.asp, asp == "ewelfare" {
+        if let url = data?.url {
             let otherWebVC = vc?.storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
-            otherWebVC.shopUrl = data?.url
+            otherWebVC.shopUrl = url
             otherWebVC.titleText = data?.title
             vc?.nextViewController(vc: otherWebVC)
         }

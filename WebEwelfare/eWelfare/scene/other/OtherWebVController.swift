@@ -76,10 +76,12 @@ class OtherWebVController: BaseVController {
         let config = WKWebViewConfiguration()
 
         let contentController = WKUserContentController()
+        contentController.add(self, name:"goAppPage")
         contentController.add(self, name:"aspGet")
         contentController.add(self, name:"aspPost")
         contentController.add(self, name:"showLoading")
         contentController.add(self, name:"tokenError")
+        contentController.add(self, name:"outWeb")
         config.userContentController = contentController
         
         let preferences = WKPreferences()
@@ -176,6 +178,75 @@ class OtherWebVController: BaseVController {
             }
         }
         return nil
+    }
+    
+    func goAppPage(_ body: String?) {
+        if body == nil {
+            return
+        }
+        
+        if let page = parseStringComponents(body!)["page"] {
+            if page == "login" {
+                goLogin()
+            }
+            else if page == "setting" {
+                goSetting()
+            }
+            else if page == "store" {
+                goMarket(appId: WDefine.eBokjiAppId)
+            }
+        }
+    }
+    
+    func aspGet(_ body: String?) {
+        if body == nil {
+            return
+        }
+        
+        let params = parseStringComponents(body!)
+        if let title = params["title"], let url = params["url"] {
+            self.shopUrl = url
+            self.titleText = title
+            
+            self.lbTitle.text = titleText!
+            self.loadUrl(urlPath: shopUrl)
+        }
+    }
+    
+    func aspPost(_ body: String?) {
+        if body == nil {
+            return
+        }
+        
+        let params = parseStringComponents(body!)
+        if let title = params["title"], let url = params["url"], let json = params["data"] {
+            self.shopUrl = url
+            self.titleText = title
+            self.postParams = makePostData(text: json)
+            
+            self.lbTitle.text = titleText!
+            self.loadUrl(urlPath: shopUrl)
+        }
+    }
+    
+    // 다음 지도 호출
+    func openSearchAddress() {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "addressWeb") as! AddressWebVController
+        vc.shopUrl = WDefine.DAUM_ADDRESS_HOST
+        vc.titleText = "주소검색"
+        vc.addressListener = { zoneCode, address, addressMore in
+            let cmd = String(format: "settingAddress('%@','%@')", zoneCode ?? "", address ?? "")
+            self.wkWebView.evaluateJavaScript(cmd, completionHandler: nil)
+        }
+        present(vc, animated: true)
+    }
+    
+    func outWeb(_ body: String?) {
+        if let body = body as? String {
+            if body.hasPrefix("http://") || body.hasPrefix("https://") {
+                self.openUrl(body)
+            }
+        }
     }
 
 }
@@ -337,30 +408,14 @@ extension OtherWebVController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         print("[[ OtherWeb - JavaScript ]] name : \(message.name), body : \(message.body)")
         
-        if message.name == "aspGet" {
-            if let body = message.body as? String {
-                let params = parseStringComponents(body)
-                if let title = params["title"], let url = params["url"] {
-                    self.shopUrl = url
-                    self.titleText = title
-                    
-                    self.lbTitle.text = titleText!
-                    self.loadUrl(urlPath: shopUrl)
-                }
-            }
+        if message.name == "goAppPage" {
+            goAppPage(message.body as? String)
+        }
+        else if message.name == "aspGet" {
+            aspGet(message.body as? String)
         }
         else if message.name == "aspPost" {
-            if let body = message.body as? String {
-                let params = parseStringComponents(body)
-                if let title = params["title"], let url = params["url"], let json = params["data"] {
-                    self.shopUrl = url
-                    self.titleText = title
-                    self.postParams = makePostData(text: json)
-                    
-                    self.lbTitle.text = titleText!
-                    self.loadUrl(urlPath: shopUrl)
-                }
-            }
+            aspPost(message.body as? String)
         }
         else if message.name == "showLoading" {
             if let body = message.body as? String, body == "true" {
@@ -374,6 +429,12 @@ extension OtherWebVController: WKScriptMessageHandler {
             self.alertPopup(message: "로그인 세션이 종료되어 로그인 화면으로 이동됩니다.") {
                 self.goLogin()
             }
+        }
+        else if message.name == "openSearchAddress" {
+            openSearchAddress()
+        }
+        else if message.name == "outWeb" {
+            outWeb(message.body as? String)
         }
     }
     

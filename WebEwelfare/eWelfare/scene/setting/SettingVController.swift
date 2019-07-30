@@ -30,9 +30,15 @@ class SettingVController: BaseVController {
                 }
             }
             else {
-                self.alertPopup(message: message!) {
-                    // self.dismiss(animated: true, completion: nil)
-                    self.navigationController?.popViewController(animated: true)
+                if message != nil {
+                    self.alertPopup(message: message!) {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+                else {
+                    self.alertPopup(message: "에러가 발생하였습니다.") {
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
             }
         }
@@ -95,7 +101,22 @@ class SettingVController: BaseVController {
                     lbLatestVersion.isHidden = false
                 }
                 else {
-                    btnUpdate.isHidden = false
+                    let splitAppVersion = appVersion.split(separator: ".")
+                    let splitConfigVersion = config.version?.name?.split(separator: ".")
+                    if (splitAppVersion.count == splitConfigVersion?.count) && (splitAppVersion.count == 3) {
+                        for i in 0..<splitAppVersion.count {
+                            if splitAppVersion[i] > splitConfigVersion![i] {
+                                lbLatestVersion.isHidden = false
+                                break
+                            }
+                            else if splitAppVersion[i] < splitConfigVersion![i] {
+                                btnUpdate.isHidden = false
+                                break
+                            }
+                        }
+                    }
+                    
+
                 }
             }
             

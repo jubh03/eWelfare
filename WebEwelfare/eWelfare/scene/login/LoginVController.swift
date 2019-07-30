@@ -13,6 +13,8 @@ class LoginVController: BaseVController {
     @IBOutlet weak var tfEmail: UITextField!
     @IBOutlet weak var tfPassword: UITextField!
 
+    @IBOutlet weak var btnSavedEmail: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,7 +25,9 @@ class LoginVController: BaseVController {
     }
     
     private func initView() {
+        tfEmail.text = AppManager.instance.savedEmail
         
+        btnSavedEmail.isSelected = (AppManager.instance.savedEmail?.isEmpty == false)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -38,6 +42,8 @@ class LoginVController: BaseVController {
         AccountManager.instance.requestLogin(email: tfEmail.text!, password: tfPassword.text!) { code, message in
             switch code {
             case ResResultCode.Success.rawValue:
+                AppManager.instance.savedEmail = self.btnSavedEmail.isSelected ? self.tfEmail.text : nil
+                
                 self.saveConfig()
                 self.goMain()
             default:
@@ -57,6 +63,10 @@ class LoginVController: BaseVController {
         vc.shopUrl = WDefine.URL + "member/cert"
         vc.titleText = "e복지 회원인증"
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func onActionSaveEmail(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
     }
     
     public func isValidData() -> Bool {
