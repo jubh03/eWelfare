@@ -69,7 +69,9 @@ class OtherWebVController: BaseVController {
     private func initView() {
         btnHome.isHidden = isHideHome
         
-        lbTitle.text = titleText!
+        if let text = titleText, !text.isEmpty {
+            lbTitle.text = text
+        }
     }
     
     private func getWebViewConfiguration() -> WKWebViewConfiguration {

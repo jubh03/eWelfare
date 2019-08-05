@@ -45,6 +45,8 @@ class MainVController: BaseVController {
         view.addConstraint(NSLayoutConstraint(item: wkWebView, attribute: .trailing, relatedBy: .equal, toItem: containerView, attribute: .trailing, multiplier: 1, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: wkWebView, attribute: .top, relatedBy: .equal, toItem: containerView, attribute: .top, multiplier: 1, constant: 0))
         view.addConstraint(NSLayoutConstraint(item: wkWebView, attribute: .bottom, relatedBy: .equal, toItem: containerView, attribute: .bottom, multiplier: 1, constant: 0))
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(receivedPush), name: Notification.Name("receivedPush"), object: nil)
     }
     
     override func viewDidLoad() {
@@ -56,6 +58,11 @@ class MainVController: BaseVController {
         initView()
         
         presenter = MainPresenter(view: self, model: MainModel())
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkPush()
     }
     
     private func initView() {
@@ -87,6 +94,27 @@ class MainVController: BaseVController {
     
     @objc func loadHome(noti: NSNotification) {
         presenter.loadHome()
+    }
+    
+    @objc
+    func receivedPush(noti: NSNotification) {
+        checkPush()
+    }
+    
+    private func checkPush() {
+        if let type = AppManager.instance.pushUrlType, let url = AppManager.init().pushUrl {
+            if type == "in" {
+                loadUrl(urlPath: url)
+            }
+            else if type == "out" {
+                let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
+                vc.shopUrl = url
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+            AppManager.instance.pushUrlType = nil
+            AppManager.instance.pushUrl = nil
+        }
     }
     
     private func getWebViewConfiguration() -> WKWebViewConfiguration {

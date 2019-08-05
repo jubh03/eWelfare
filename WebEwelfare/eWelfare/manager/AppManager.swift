@@ -121,5 +121,27 @@ class AppManager {
             UserDefaults.standard.synchronize()
         }
     }
+    
+    private let PUSH_URL_TYPE = "PUSH_URL_TYPE"
+    var pushUrlType: String? {
+        get {
+            return UserDefaults.standard.string(forKey: PUSH_URL_TYPE)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: PUSH_URL_TYPE)
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
+    private let PUSH_URL = "PUSH_URL"
+    var pushUrl: String? {
+        get {
+            return UserDefaults.standard.string(forKey: PUSH_URL)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: PUSH_URL)
+            UserDefaults.standard.synchronize()
+        }
+    }
 
 }

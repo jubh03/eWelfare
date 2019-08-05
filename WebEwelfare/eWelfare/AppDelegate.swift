@@ -84,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.registerForRemoteNotifications()
     }
-    
+
 }
 
 
@@ -118,15 +118,32 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
+        let body = response.notification.request.content.body
+        
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
         
+        self.checkLink(userInfo, body)
+        
         // Print full message.
         print(userInfo)
         
         completionHandler()
+    }
+    
+    private func checkLink(_ userInfo: [AnyHashable : Any], _ body: String) {
+        if let link = userInfo["url"] as? String {
+            if let type = userInfo["type"] as? String {
+                if type == "in" || type == "out" {
+                    AppManager.instance.pushUrlType = type
+                    AppManager.instance.pushUrl = link
+                    
+                    NotificationCenter.default.post(name: Notification.Name("receivedPush"), object: nil)
+                }
+            }
+        }
     }
     
 }
