@@ -31,7 +31,8 @@ class ImageLoadingPopup: UIView {
         }
 
 //        ivImage.image = UIImage(named: "image_loading_\(ImageLoadingPopup.id).png")
-        ivImage.image = UIImage.gif(name: "image_loading")
+//        ivImage.image = UIImage.gif(name: "image_loading")
+        ivImage.image = UIImage.gif(name: "medical_loading")
         
         let uiView: UIView = UIApplication.shared.keyWindow!
         uiView.addSubview(self)

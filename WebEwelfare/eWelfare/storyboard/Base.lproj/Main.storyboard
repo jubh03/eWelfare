@@ -1218,25 +1218,56 @@
                                     <action selector="onActionLogin:" destination="Ell-tH-Ul8" eventType="touchUpInside" id="Mtl-4o-5Tx"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8C2-vD-hT2">
-                                <rect key="frame" x="122.5" y="473" width="130" height="40"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="no8-Jg-JjM">
+                                <rect key="frame" x="30" y="473" width="315" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8C2-vD-hT2">
+                                        <rect key="frame" x="0.0" y="0.0" width="130" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="0XM-Lp-FP6"/>
+                                            <constraint firstAttribute="width" constant="130" id="aN1-Tu-G8f"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="회원 인증하기" image="icon_lock.png">
+                                            <color key="titleColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onActionCertify:" destination="Ell-tH-Ul8" eventType="touchUpInside" id="aCI-TW-dbI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4fD-sf-zVm">
+                                        <rect key="frame" x="145" y="0.0" width="170" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="170" id="5Cr-cc-UQG"/>
+                                            <constraint firstAttribute="height" constant="40" id="fvc-6j-SUR"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="아이디 / 비밀번호 찾기" image="icon_search.png">
+                                            <color key="titleColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onActionFindIdPwd:" destination="Ell-tH-Ul8" eventType="touchUpInside" id="k8M-UB-uD9"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="0XM-Lp-FP6"/>
-                                    <constraint firstAttribute="width" constant="130" id="aN1-Tu-G8f"/>
+                                    <constraint firstAttribute="trailing" secondItem="4fD-sf-zVm" secondAttribute="trailing" id="I3B-PS-seu"/>
+                                    <constraint firstItem="8C2-vD-hT2" firstAttribute="top" secondItem="no8-Jg-JjM" secondAttribute="top" id="Vga-cz-gcd"/>
+                                    <constraint firstItem="4fD-sf-zVm" firstAttribute="top" secondItem="no8-Jg-JjM" secondAttribute="top" id="dTL-Av-VCP"/>
+                                    <constraint firstAttribute="bottom" secondItem="4fD-sf-zVm" secondAttribute="bottom" id="ezm-8y-Syi"/>
+                                    <constraint firstAttribute="bottom" secondItem="8C2-vD-hT2" secondAttribute="bottom" id="fqt-a5-GsM"/>
+                                    <constraint firstAttribute="height" constant="40" id="oUG-DW-18O"/>
+                                    <constraint firstItem="8C2-vD-hT2" firstAttribute="leading" secondItem="no8-Jg-JjM" secondAttribute="leading" id="yQw-U6-1Sq"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="회원 인증하기" image="icon_lock.png">
-                                    <color key="titleColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="onActionCertify:" destination="Ell-tH-Ul8" eventType="touchUpInside" id="aCI-TW-dbI"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ZQK-z9-m5P" firstAttribute="top" secondItem="and-Bk-uOl" secondAttribute="bottom" constant="100" id="4Oh-j4-a8P"/>
+                            <constraint firstItem="no8-Jg-JjM" firstAttribute="width" secondItem="ZQK-z9-m5P" secondAttribute="width" id="9Pa-nD-ePy"/>
                             <constraint firstItem="B11-Wc-HMG" firstAttribute="top" secondItem="iEC-N4-diJ" secondAttribute="top" id="A3b-3k-nNf"/>
                             <constraint firstItem="iEC-N4-diJ" firstAttribute="trailing" secondItem="8LQ-Z7-EYf" secondAttribute="trailing" constant="30" id="Ckc-za-Avu"/>
                             <constraint firstItem="and-Bk-uOl" firstAttribute="top" secondItem="8LQ-Z7-EYf" secondAttribute="bottom" constant="10" id="Hfq-8c-X5k"/>
@@ -1244,9 +1275,9 @@
                             <constraint firstItem="and-Bk-uOl" firstAttribute="width" secondItem="8LQ-Z7-EYf" secondAttribute="width" id="L6O-CG-FWy"/>
                             <constraint firstItem="and-Bk-uOl" firstAttribute="centerX" secondItem="8LQ-Z7-EYf" secondAttribute="centerX" id="MnZ-mx-K9I"/>
                             <constraint firstItem="iEC-N4-diJ" firstAttribute="trailing" secondItem="B11-Wc-HMG" secondAttribute="trailing" id="SnG-2L-oba"/>
-                            <constraint firstItem="8C2-vD-hT2" firstAttribute="centerX" secondItem="7PC-wT-7lq" secondAttribute="centerX" id="Xrt-cc-Mo1"/>
+                            <constraint firstItem="no8-Jg-JjM" firstAttribute="centerX" secondItem="7PC-wT-7lq" secondAttribute="centerX" id="WdO-Na-yNz"/>
                             <constraint firstItem="JmB-iY-gUC" firstAttribute="top" secondItem="and-Bk-uOl" secondAttribute="bottom" constant="8" id="e34-UP-RYW"/>
-                            <constraint firstItem="8C2-vD-hT2" firstAttribute="top" secondItem="ZQK-z9-m5P" secondAttribute="bottom" constant="50" id="fUN-A3-ysp"/>
+                            <constraint firstItem="no8-Jg-JjM" firstAttribute="top" secondItem="ZQK-z9-m5P" secondAttribute="bottom" constant="50" id="g5T-NC-o7W"/>
                             <constraint firstItem="8LQ-Z7-EYf" firstAttribute="leading" secondItem="iEC-N4-diJ" secondAttribute="leading" constant="30" id="kAq-jI-lJ0"/>
                             <constraint firstItem="JmB-iY-gUC" firstAttribute="centerX" secondItem="7PC-wT-7lq" secondAttribute="centerX" id="r5w-q7-dbk"/>
                             <constraint firstItem="B11-Wc-HMG" firstAttribute="leading" secondItem="iEC-N4-diJ" secondAttribute="leading" id="sNO-Q6-IL7"/>
@@ -1264,7 +1295,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Kl-XX-vIi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="27"/>
+            <point key="canvasLocation" x="52" y="26.53673163418291"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="zVi-Gc-x7i">
@@ -1368,6 +1399,7 @@
         <image name="icon_lock.png" width="11" height="14.5"/>
         <image name="icon_order_list.png" width="40" height="40"/>
         <image name="icon_recent.png" width="40" height="40"/>
+        <image name="icon_search.png" width="11" height="11"/>
         <image name="icon_send_right.png" width="24" height="24"/>
         <image name="landing.png" width="375" height="812"/>
         <image name="logo.png" width="140" height="140"/>

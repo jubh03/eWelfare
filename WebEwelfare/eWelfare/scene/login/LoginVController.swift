@@ -65,6 +65,15 @@ class LoginVController: BaseVController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    @IBAction func onActionFindIdPwd(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "otherWeb") as! OtherWebVController
+        vc.isHideHome = true
+        vc.shopUrl = WDefine.URL + "member/search/idpw"
+        vc.titleText = "e복지 아이디 / 비밀번호 찾기"
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
+    
     @IBAction func onActionSaveEmail(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
     }
