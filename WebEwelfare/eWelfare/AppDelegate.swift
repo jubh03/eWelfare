@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // push
         registerForPushNotifications(application)
         
+        // iOS6에서 세션끊어지는 상황 방지하기 위해 쿠키 설정.
+        HTTPCookieStorage.shared.cookieAcceptPolicy = .always
+        
         return true
     }
 
