@@ -8,6 +8,9 @@
 
 import UIKit
 import UserNotifications
+import Alamofire
+import AlamofireObjectMapper
+import SwiftyJSON
 
 import Firebase
 
@@ -129,6 +132,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         }
         
         self.checkLink(userInfo, body)
+        self.checkPushId(userInfo, body)
         
         // Print full message.
         print(userInfo)
@@ -147,6 +151,26 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                 }
             }
         }
+    }
+    
+    private func checkPushId(_ userInfo: [AnyHashable : Any], _ body: String) {
+        if let pushId = userInfo["push_id"] as? String {
+            // url
+            let url: String = WDefine.API + "push/status"
+            
+            // parameter
+            var parameters: Parameters = Parameters()
+            parameters["push_id"] = pushId
+            
+            Alamofire.request(url,
+                              method: .post,
+                              parameters: parameters,
+                              encoding: JSONEncoding.default,
+                              headers: AlamofireHelper.instance.headers).responseObject { (response: DataResponse<ResLogin>) in
+                                // noting
+            }
+        }
+
     }
     
 }
