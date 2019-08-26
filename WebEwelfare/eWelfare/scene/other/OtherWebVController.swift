@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyIamport
 import WebKit
 
 class OtherWebVController: BaseVController {
@@ -67,6 +68,22 @@ class OtherWebVController: BaseVController {
     }
     
     private func initView() {
+        // 결제 환경 설정
+        IAMPortPay.sharedInstance.configure(scheme: "iamporttest")  // info.plist에 설정한 scheme
+        
+        IAMPortPay.sharedInstance
+            .setWKWebView(self.wkWebView)   // 현재 Controller에 있는 WebView 지정
+            .setRedirectUrl(nil)            // m_redirect_url 주소
+        
+        // ISP 취소시 이벤트 (NicePay만 가능)
+        IAMPortPay.sharedInstance.setCancelListenerForNicePay { [weak self]  in
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: nil, message: "ISP 결제 취소", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                self?.present(alert, animated: true, completion: nil)
+            }
+        }
+        
         btnHome.isHidden = isHideHome
         
         if let text = titleText, !text.isEmpty {
@@ -301,105 +318,79 @@ extension OtherWebVController: WKUIDelegate {
 
 extension OtherWebVController: WKNavigationDelegate {
     
-    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        newWkWebView = WKWebView(frame: webView.frame, configuration: configuration)
-        newWkWebView!.scrollView.bounces = self.wkWebView.scrollView.bounces
-        newWkWebView!.uiDelegate = self.wkWebView.uiDelegate
-        newWkWebView!.navigationDelegate = self.wkWebView.navigationDelegate
-        containerView.addSubview(newWkWebView!)
-        return newWkWebView
-    }
-    
-    func webViewDidClose(_ webView: WKWebView) {
-        if webView == newWkWebView! {
-            newWkWebView!.removeFromSuperview()
-            newWkWebView = nil
-        }
-    }
-    
-    // 중복적으로 리로드 방지
-    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-        webView.reload()
-    }
+//    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+//        newWkWebView = WKWebView(frame: webView.frame, configuration: configuration)
+//        newWkWebView!.scrollView.bounces = self.wkWebView.scrollView.bounces
+//        newWkWebView!.uiDelegate = self.wkWebView.uiDelegate
+//        newWkWebView!.navigationDelegate = self.wkWebView.navigationDelegate
+//        containerView.addSubview(newWkWebView!)
+//        return newWkWebView
+//    }
+//    
+//    func webViewDidClose(_ webView: WKWebView) {
+//        if webView == newWkWebView! {
+//            newWkWebView!.removeFromSuperview()
+//            newWkWebView = nil
+//        }
+//    }
+//    
+//    // 중복적으로 리로드 방지
+//    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+//        webView.reload()
+//    }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        HTTPCookieStorage.shared.cookieAcceptPolicy = .always
+        let request = navigationAction.request
         
-        if let urlStr = navigationAction.request.url?.absoluteString {
-            print("Other 요청된 URL ==> \(urlStr)")
-        }
-        
-        // iOS10 신한, 삼성, NH 등 앱카드 관련 ///////////////////
-        let device = UIDevice.current
-        var backgroundSupported = false
-        
-        if device.responds(to: #selector(getter: UIDevice.isMultitaskingSupported)){
-            backgroundSupported = device.isMultitaskingSupported
-        }
-        NSLog("backgroundSupported ==>%@", backgroundSupported ? "YES" : "NO")
-        
-        if !backgroundSupported {
-            let alertController = UIAlertController(title: "e단비", message: "멀티테스킹을 지원하는 기기 또는 어플만 공인인증서비스가 가능합니다.", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in
-            }))
-            
-            decisionHandler(.allow)
-            return
-        }
-        
-        if let urlStr = navigationAction.request.url?.absoluteString {
-            // print("요청된 URL ==> \(urlStr)")
-            
-            if urlStr.hasPrefix("ispmobile://") {  // 모바일ISP 호출 처리
-                NSLog("ispmobile ");
-                
-                // ispmobile://?TID=SMTPAY001m01011708181134147103
-                // tid 저장
-                tid = urlStr.components(separatedBy: "TID=")[1]
-                
-                if let ispMobileAppURL = URL(string: urlStr) {
-                    UIApplication.shared.open(ispMobileAppURL, options: [:]) { isSuccess in
-                        if !isSuccess {
-                            if let ispMobileAppDownloadURL = URL(string: "http://itunes.apple.com/kr/app/id369125087?mt=8") {
-                                UIApplication.shared.open(ispMobileAppDownloadURL, options: [:], completionHandler: nil)
-                            }
-                        }
-                    }
-                }
-                decisionHandler(.cancel)
-                return
-            }
-                // else if urlStr.hasPrefix("bankpay://") {  // 금결원 APP 호출 처리
-            else if urlStr.hasPrefix("kftc-bankpay://") {  // 금결원 APP 호출 처리
-                //    kftc-bankpay://eftpay?callbackfunc=http://203.81.9.4:1880/RequestBankpay.do&approve_no=21900260&serial_no=0000000&amount=1004&hd_ep_type=SECUCERT&firm_name=(%EC%A3%BC)%EC%8A%A4%EB%A7%88%ED%8A%B8%EB%A1%9C&receipt_yn=N&user_key=SMTPAY001m02011708251359568455&title=&sbp_service_use=Y&sbp_tab_first=Y&fixed_bank_code=&callbackparam1=380902&returnURL=&method=POST&
-                
-                if let kftcMobileAppURL = URL(string: urlStr) {
-                    UIApplication.shared.open(kftcMobileAppURL, options: [:]) { isSuccess in
-                        if !isSuccess {
-                            if let kftcMobileAppDownloadURL = URL(string: "http://itunes.apple.com/kr/app/id398456030?mt=8") {
-                                UIApplication.shared.open(kftcMobileAppDownloadURL, options: [:], completionHandler: nil)
-                            }
-                        }
-                    }
-                }
-                decisionHandler(.cancel)
-                return
-            }
-            else if urlStr.range(of: "itunes.apple.com") != nil || urlStr.range(of: "phobos.apple.com") != nil {
-                if self.openUrl(urlStr) {
-                    decisionHandler(.cancel)
-                    return
+        IAMPortPay.sharedInstance.requestRedirectUrl(for: request, parser: { (data, response, error) -> Any? in
+            // Background Thread 처리
+            var resultData: [String: Any]?
+            if let httpResponse = response as? HTTPURLResponse {
+                let statusCode = httpResponse.statusCode
+                switch statusCode {
+                case 200:
+                    resultData = [
+                        "isSuccess": "OK"
+                    ]
+                    break
+                default:
+                    break
                 }
             }
-            else if !urlStr.hasPrefix("http://") && !urlStr.hasPrefix("https://") && !urlStr.hasPrefix("about:") {
-                if self.openUrl(urlStr) {
-                    decisionHandler(.cancel)
-                    return
-                }
-            }
+            return resultData
+        }) { (pasingData) in
+            // Main Thread 처리
         }
         
-        decisionHandler(.allow)
+        let result = IAMPortPay.sharedInstance.requestAction(for: request)
+        decisionHandler(result ? .allow : .cancel)
+        
+//        decisionHandler(.allow)
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        // 결제 환경으로 설정에 의한 웹페이지(Local) 호출 결과
+        IAMPortPay.sharedInstance.requestIAMPortPayWKWebViewDidFinishLoad(webView) { (error) in
+            if error != nil {
+                switch error! {
+                case .custom(let reason):
+                    print("error: \(reason)")
+                    break
+                }
+            }
+            else {
+                print("OK")
+            }
+        }
+    }
+    
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        print("didFail")
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        print("didFailProvisionalNavigation \(error.localizedDescription)")
     }
     
 }

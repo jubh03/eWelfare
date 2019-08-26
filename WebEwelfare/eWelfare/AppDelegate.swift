@@ -11,6 +11,7 @@ import UserNotifications
 import Alamofire
 import AlamofireObjectMapper
 import SwiftyJSON
+import SwiftyIamport
 
 import Firebase
 
@@ -55,6 +56,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        if let scheme = url.scheme {
+            if scheme.hasPrefix(IAMPortPay.sharedInstance.appScheme ?? "") {
+                return IAMPortPay.sharedInstance.application(app, open: url, options: options)
+            }
+        }
+        return true
+    }
+    
+    // for iOS below 9.0
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        if let scheme = url.scheme {
+            if scheme.hasPrefix(IAMPortPay.sharedInstance.appScheme ?? "") {
+                return IAMPortPay.sharedInstance.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+            }
+        }
+        return true
     }
 
     // Called when APNs has assigned the device a unique token
